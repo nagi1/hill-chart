@@ -1,5 +1,6 @@
 {
   "env": {
+    "commonjs": true,
     "browser": true,
     "es6": true
   },
@@ -14,7 +15,6 @@
   },
   "plugins": ["prettier"],
   "rules": {
-    "no-console": "off",
-    "prettier/prettier": "error"
+    "no-console": "off"
   }
 }
