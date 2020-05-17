@@ -1,0 +1,24 @@
+{
+	"name": "hill-chart",
+	"description": "Basecamp's hill chart implementation in d3.js",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nagi1/hill-chart"
+	},
+	"keywords": [
+		"basecamp",
+		"hill chart",
+		"project management",
+		"js",
+		"d3js"
+	],
+	"author": "Ahmed Nagi <ahmedflnagi@gmail.com> (https://ahmednagi.com)",
+	"license": "MIT",
+	"bugs": {
+		"email": "bugs@ahmednagi.com",
+		"url": "https://github.com/nagi1/hill-chart/issues"
+	},
+	"homepage": "https://github.com/nagi1/hill-chart#readme"
+}
