@@ -1,6 +1,9 @@
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
+import cjs from '@rollup/plugin-commonjs';
+import bundleSize from 'rollup-plugin-bundle-size';
+import visualizer from 'rollup-plugin-visualizer';
 // import serve from 'rollup-plugin-serve';
 // import livereload from 'rollup-plugin-livereload';
 import postcss from 'rollup-plugin-postcss';
@@ -24,41 +27,31 @@ const outputs = [
   {
     name: 'HillChart',
     file: `${dist}/${bundle}.umd.js`,
-    globals: {
-      'event-emitter-es6': 'EventEmitter',
-      'd3-selection': 'd3Selection',
-      'd3-scale': 'd3Scale',
-      'd3-axis': 'd3Axis',
-      'd3-shape': 'd3Shape',
-      'd3-drag': 'd3Drag',
-      'd3-array': 'd3Array',
-    },
     format: 'umd',
   },
 ];
 
 const common = {
   input: 'src/index.js',
-  external: [
-    'd3-array',
-    'd3-axis',
-    'd3-drag',
-    'd3-scale',
-    'd3-selection',
-    'd3-shape',
-    'event-emitter-es6',
-  ],
   plugins: [
     // serve({ open: true, contentBase: 'dist' }),
     // livereload('dist'),
+    cjs({
+      include: 'node_modules/**',
+    }),
     resolve(),
     babel({
       exclude: 'node_modules/**',
     }),
+
     production && terser(),
     postcss({
       extract: path.resolve('dist/styles.css'),
       plugins: [autoprefixer(), cssnano()],
+    }),
+    bundleSize(),
+    visualizer({
+      gzipSize: true,
     }),
   ],
 };

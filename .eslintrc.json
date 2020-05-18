@@ -17,6 +17,8 @@
   "rules": {
     "no-console": "off",
     "comma-style": "warn",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "no-param-reassign": "off",
+    "func-names": "off"
   }
 }
