@@ -1,8 +1,12 @@
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
-
-// import pkg from './package.json';
+// import serve from 'rollup-plugin-serve';
+// import livereload from 'rollup-plugin-livereload';
+import postcss from 'rollup-plugin-postcss';
+import path from 'path';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
 
 const production = !process.env.ROLLUP_WATCH;
 const dist = 'dist';
@@ -39,11 +43,17 @@ const common = {
     'event-emitter-es6',
   ],
   plugins: [
+    // serve({ open: true, contentBase: 'dist' }),
+    // livereload('dist'),
     resolve(),
     babel({
       exclude: 'node_modules/**',
     }),
     production && terser(),
+    postcss({
+      extract: path.resolve('dist/styles.css'),
+      plugins: [autoprefixer(), cssnano()],
+    }),
   ],
 };
 
