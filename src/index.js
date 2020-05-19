@@ -1,33 +1,21 @@
-import { select, event } from 'd3-selection';
-import { scaleLinear } from 'd3-scale';
-import { axisBottom } from 'd3-axis';
-import { line } from 'd3-shape';
-import { drag } from 'd3-drag';
-import { range } from 'd3-array';
 import EventEmitter from 'event-emitter-es6';
+import {
+  select,
+  event,
+  scaleLinear,
+  axisBottom,
+  line,
+  drag,
+  range,
+} from './d3';
+import {
+  hillFn,
+  hillFnInverse,
+  textOutRange,
+  calculateTextPositionForX,
+  calculateTextMarginForY,
+} from './helpers';
 import './styles.css';
-
-// Some math magic of the function responsible for produce
-// hill-like curve and, correctly position and drag
-// points on the Y axis
-const hillFn = (point) =>
-  50 * Math.sin((Math.PI / 50) * point - (1 / 2) * Math.PI) + 50;
-
-// The inverse of the same magic to convert back values from
-// chart back to the original before hillFn(). mainly used
-// in dragging event and setting the setting new values.
-const hillFnInverse = (point) =>
-  (25 * (2 * Math.asin((point - 50) / 50) + Math.PI)) / Math.PI;
-
-// Calculate when the point is just near to the right side of the chart
-const textOutRange = (x) => x >= 80 && x <= 100;
-
-const calculateTextPositionForX = (size, x) => {
-  const margin = size + 5;
-  return textOutRange(x) ? -1 * margin : margin;
-};
-
-const calculateTextMarginForY = () => 5;
 
 const defaults = {
   target: 'svg',
@@ -45,6 +33,7 @@ const defaults = {
 export default class HillChart extends EventEmitter {
   constructor(data, config) {
     super();
+
     Object.assign(this, defaults, { data }, config);
     this.init();
   }
@@ -99,12 +88,12 @@ export default class HillChart extends EventEmitter {
     // Render the text on the footer
     this.renderFooterText();
 
-    // Get copy of the instance to use inside in dragging callback
     const that = this;
 
     // Handle dragging
-    const dragPoint = drag().on('drag', (data) => {
+    const dragPoint = drag().on('drag', function (data) {
       let { x } = event;
+
       // Check point movement, preventing it from wondering outside the main curve
       if (x < 0) {
         that.emit('home', data);
@@ -119,9 +108,11 @@ export default class HillChart extends EventEmitter {
         // between 0 and 100 to set it in the data attribute
         const invertedX = that.xScale.invert(x);
 
-        const y = that.yScale(hillFn(invertedX));
+        data.x = x;
 
-        const invertedY = hillFnInverse(that.yScale.invert(y));
+        data.y = that.yScale(hillFn(invertedX));
+
+        const invertedY = hillFnInverse(that.yScale.invert(data.y));
 
         const newInvertedCoordinates = {
           x: invertedX,
@@ -130,7 +121,7 @@ export default class HillChart extends EventEmitter {
 
         const selectedPoint = select(this).attr(
           'transform',
-          `translate(${x}, ${y})`,
+          `translate(${data.x}, ${data.y})`
         );
         selectedPoint
           .select('text')
@@ -141,11 +132,11 @@ export default class HillChart extends EventEmitter {
             return 'start';
           })
           .attr('x', (point) =>
-            calculateTextPositionForX(point.size, invertedX),
+            calculateTextPositionForX(point.size, invertedX)
           );
 
         selectedPoint.on('click', () => {
-          that.emit('click', data);
+          that.emit('PointClick', data);
         });
         that.emit('move', invertedX, invertedY);
         that.emit('moved', { ...data, ...newInvertedCoordinates });
@@ -166,9 +157,9 @@ export default class HillChart extends EventEmitter {
         .append('g')
         .attr('class', 'hill-chart-group')
         .attr('transform', (data) => {
-          const x = this.xScale(data.x);
-          const y = this.yScale(data.y);
-          return `translate(${x}, ${y})`;
+          data.x = this.xScale(data.x);
+          data.y = this.yScale(data.y);
+          return `translate(${data.x}, ${data.y})`;
         })
         .call(dragPoint);
     }
@@ -185,7 +176,7 @@ export default class HillChart extends EventEmitter {
       .append('text')
       .text((data) => data.description)
       .attr('x', (data) =>
-        calculateTextPositionForX(data.size, this.xScale.invert(data.x)),
+        calculateTextPositionForX(data.size, this.xScale.invert(data.x))
       )
       .style('text-anchor', (data) => {
         if (textOutRange(this.xScale.invert(data.x))) {
@@ -207,9 +198,9 @@ export default class HillChart extends EventEmitter {
       .attr('class', 'hill-chart-group')
       .style('cursor', 'pointer')
       .attr('transform', (data) => {
-        const x = this.xScale(data.x);
-        const y = this.yScale(data.y);
-        return `translate(${x}, ${y})`;
+        data.x = this.xScale(data.x);
+        data.y = this.yScale(data.y);
+        return `translate(${data.x}, ${data.y})`;
       });
   }
 

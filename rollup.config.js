@@ -4,8 +4,6 @@ import { terser } from 'rollup-plugin-terser';
 import cjs from '@rollup/plugin-commonjs';
 import bundleSize from 'rollup-plugin-bundle-size';
 import visualizer from 'rollup-plugin-visualizer';
-// import serve from 'rollup-plugin-serve';
-// import livereload from 'rollup-plugin-livereload';
 import postcss from 'rollup-plugin-postcss';
 import path from 'path';
 import autoprefixer from 'autoprefixer';
@@ -14,28 +12,8 @@ import cssnano from 'cssnano';
 const production = !process.env.ROLLUP_WATCH;
 const dist = 'dist';
 const bundle = 'bundle';
-
-const outputs = [
-  {
-    file: `${dist}/${bundle}.cjs.js`,
-    format: 'cjs',
-  },
-  {
-    file: `${dist}/${bundle}.esm.js`,
-    format: 'esm',
-  },
-  {
-    name: 'HillChart',
-    file: `${dist}/${bundle}.umd.js`,
-    format: 'umd',
-  },
-];
-
-const common = {
-  input: 'src/index.js',
+const commonOptions = {
   plugins: [
-    // serve({ open: true, contentBase: 'dist' }),
-    // livereload('dist'),
     cjs({
       include: 'node_modules/**',
     }),
@@ -56,7 +34,72 @@ const common = {
   ],
 };
 
-export default outputs.map((output) => ({
-  ...common,
-  output,
-}));
+const full = {
+  input: 'src/index.js',
+  output: [
+    {
+      file: `${dist}/${bundle}.cjs.js`,
+      format: 'cjs',
+    },
+    {
+      file: `${dist}/${bundle}.esm.js`,
+      format: 'esm',
+    },
+    {
+      name: 'HillChart',
+      file: `${dist}/${bundle}.umd.js`,
+      format: 'umd',
+    },
+  ],
+
+  ...commonOptions,
+};
+
+const withoutD3 = {
+  input: 'src/index.js',
+  external: [
+    'd3-selection',
+    'd3-scale',
+    'd3-axis',
+    'd3-shape',
+    'd3-drag',
+    'd3-array',
+  ],
+  output: [
+    {
+      file: `${dist}/${bundle}.cjs.min.js`,
+      format: 'cjs',
+    },
+    {
+      file: `${dist}/${bundle}.esm.min.js`,
+      format: 'esm',
+    },
+    {
+      name: 'HillChart',
+      file: `${dist}/${bundle}.umd.min.js`,
+      format: 'umd',
+      globals: {
+        'd3-selection': 'd3',
+        'd3-scale': 'd3',
+        'd3-axis': 'd3',
+        'd3-shape': 'd3',
+        'd3-drag': 'd3',
+        'd3-array': 'd3',
+      },
+    },
+  ],
+
+  ...commonOptions,
+};
+
+const d3 = {
+  input: 'src/d3.js',
+  output: {
+    file: `${dist}/d3.min.js`,
+    name: 'd3',
+    format: 'umd',
+  },
+  ...commonOptions,
+};
+
+export default [{ ...d3 }, { ...full }, { ...withoutD3 }];
