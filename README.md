@@ -37,7 +37,7 @@ npm i hill-chart
 Using CDN including custom d3js bundled ~ 48kb (16kb gizp)
 
 ```html
-<script src="https://unpkg.com/hill-chart@latest/dist/bundle.udm.js" />
+<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.udm.js" />
 ```
 
 or CDN for the custom d3js bundle minified ~ 41kb (14 gizp)
@@ -49,52 +49,157 @@ or CDN for the custom d3js bundle minified ~ 41kb (14 gizp)
 hill chart only minified ~8kb (2kb gzip)
 
 ```html
-<script src="https://unpkg.com/hill-chart@latest/dist/bundle.udm.min.js" />
+<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.udm.js" />
 ```
 
-## Documentation
+## Usage
 
-### Tailwind Config
-
-#### Screen sizes
+1. make sure to have empty `<svg />` on your dom
+2. define some points
 
 ```js
-screens: {
-			iphone5: '320px',
-			xs: '320px',
-			iphonex: '375px',
-			iphonePlus: '414px',
-			colbreak: '500px',
-			sm: '640px',
-			ipad: '768px',
-			md: '768px',
-			lg: '930px',
-			ipadAir: '1024px',
-			xl: '1024px',
-			laptop: '1100px',
-			'2xl': '1280px',
-			'3xl': '1320px',
-			laptopl: '1440px',
-			colView: { min: '1px', max: '499px' },
-			menubreak: { min: '931px', max: '1023px' },
-			rightsidebreak: { min: '637px', max: '905px' },
-			afterRightSideBreak: { min: '905px', max: '929px' },
-		},
+const data = [
+  {
+    color: 'red',
+    description: 'Late af task',
+    size: 10,
+    x: 12.069770990416055,
+    y: 12.069770990416057,
+    link: '/fired.html',
+  },
+
+  {
+    color: 'yellow',
+    description: 'Gettin there',
+    size: 10,
+    x: 55.11627906976744,
+    y: 44.88372093023257,
+  },
+  {
+    color: 'green',
+    description: 'Hell yeah!',
+    x: 93.48837209302326,
+    y: 6.511627906976724,
+    size: 10,
+  },
+];
 ```
 
-\***\*Note: Order of sizes matters\*\***
+3. (optional) define options
 
-### PostCss config
+```js
+const config = {
+  target: '.hill-chart',
+  width: 700,
+  height: 270,
+  preview: false,
+};
+```
 
-`cat css/*.css | postcss > ./public/build/styles.css`
+```js
+const hill = new HillChart(data, config);
+hill.render();
 
-Postcss will compile fontawsome (fa.css) and (tailwind.css) into one minified bundle (styles.css)
+hill.on('move', (x, y) => {
+  console.log(`x: ${x}`);
+  console.log(`y: ${y}`);
+});
+```
 
-- **In production `yarn production`**
-  - PurgeCss
-  - cssnano
+---
 
-will minifiy the whole bundle into 12kb!
+### Config (Object)
+
+all default config can be override by passing `config` object to the `HillChart` instance.
+
+```js
+const config = {
+  width: 900, // chart width
+  height: 300, // chart height
+  target: 'svg', // element selector it could be class, id, or svg element on page but it has to be an <svg /> element
+  preview: false, // if true points wont be draggable
+  margin: {
+    // the margins of the inner chart from the svg frame
+    top: 20,
+    right: 20,
+    bottom: 40,
+    left: 20,
+  },
+};
+```
+
+---
+
+### Data (Array)
+
+You can define as may points as you want as long as the it have these options
+
+```js
+data: [
+  {
+          color: 'red', // color of the point it can be named color 'blue', 'red' or hex #000fff, #cccccc
+          description: 'Late af task', // text next to the point, it's recommended to keep it short
+          size: 10, // (optional) default size of the point
+          x: 12.069770990416055, // x coordinates, (optional, defaults to 0) avoid setting it manually
+          y: 12.069770990416057, // y coordinates, (optional, defaults to 0) avoid setting it manually
+          link: '/fired.html', // (optional, defaults to '#') if in preview mode point became clickable
+  }
+],
+```
+
+---
+
+### Events
+
+**Name:** Move
+
+**Trigger:** `.on('move', (x, y)=>{})`
+
+**triggered:** while point being dragged
+
+**payload:** the point's new coordinates
+
+---
+
+**_Pro tip: you may use this event to store points in the database_**
+
+**Name:** Moved
+
+**Trigger:** `.on('moved', (data)=>{})`
+
+**triggered:** after point dragged
+
+**payload:** the point's data object with new coordinates
+
+---
+
+**Name:** Home
+
+**Trigger:** `.on('home', (data)=>{})`
+
+**triggered:** if the point hit 0 on X axis
+
+**payload:** the point's data object
+
+---
+
+**Name:** End
+
+**Trigger:** `.on('en', (data)=>{})`
+
+**triggered:** if the point hit last point on X axis
+
+**payload:** the point's data object
+
+---
+
+**Name:** pointClick
+
+**Trigger:** `.on('pointClick', (data)=>{})`
+
+**triggered:** when clicked on the point
+
+**payload:** the point's data object
 
 ---
 
@@ -108,31 +213,36 @@ will minifiy the whole bundle into 12kb!
 ### Step 2
 
 - Fork this repo!
-- Commit to the [develop](https://github.com/nagi1/twitter-clone/tree/develop) branch
-
-- **Do your thing.**
+- Install dev dependencies
+- Create new branch describes the new feature/bug.
+- Do your thing :)
 
 ### Step 3
 
-- Create a new pull request
+- **Be sure to include tests**
+- Submit a new pull request
 
 ---
 
 ## Todo List
 
-- [ ] Add NPM support
-- [ ] Edit the Readme.md
-- [ ] Create community
-- [ ] Unify screen sizes
-- [ ] Move to [Material Icons](https://material.io/resources/icons/)
-- [ ] Fix button sizes
-- [ ] Fix Mobile version
+- [ ] Refactor the nasty [`drag()`](https://github.com/nagi1/hill-chart/blob/master/src/index.js#L94) event handler
+- [ ] Add more test. **(depends on `drag()` refactoring)**
+- [ ] Add more events, or improve the existence ones
+- [ ] Add dev server/watcher
 - [ ] Extract to vue components
-- [ ] un-Spaghetti the code!
-- [ ] Add setting page
-- [ ] Add more tweet cards
-- [ ] Add direct messages page
+- [ ] Feature add snow ball effect, add option to increase the point size gradually near the end.
+- [ ] Improve the demo
+- [ ] Fully extract d3 modules
 
 ---
 
-## License
+## Inspiration (credits)
+
+- [Basecamp](basecamp.com)
+- [zemirco](https://github.com/zemirco/d3-hill-chart) (thanks for the equation)
+
+## 🛑 Copyright notice
+
+Hill chart is an original idea by Basecamp.
+While this project aims to replicate the behavior and/or the design of the mentioned idea, it isn't by any means an attempt to reclaim the credit of the idea nor the design.
