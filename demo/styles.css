@@ -1,0 +1,41 @@
+.chart-hill-main-curve {
+  fill: none;
+  opacity: 0.67;
+  stroke: #6d6d6d;
+  stroke-width: 1.5px;
+}
+.hill-chart-circle {
+  stroke: #fff;
+  stroke-width: 2;
+}
+.hill-chart-middle-line {
+  fill: none;
+  stroke: #cbd5e0;
+  stroke-width: 2.09px;
+  shape-rendering: crispEdges;
+  stroke-dasharray: 10, 10;
+}
+.hill-chart-bottom-line path {
+  stroke: #bbb6b6;
+  stroke-width: 1px;
+}
+.hill-chart-text {
+  font-family: Helvetica, sans-serif;
+  text-transform: uppercase;
+  fill: #949494;
+  font-weight: 700;
+  text-anchor: middle;
+  shape-rendering: crispEdges;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hill-chart-group {
+  cursor: move;
+}
+.hill-chart-group > text {
+  text-anchor: start;
+  shape-rendering: crispEdges;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
+}
