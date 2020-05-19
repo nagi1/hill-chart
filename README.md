@@ -6,7 +6,7 @@
 
 <br/>
 
-[![Build Status](https://travis-ci.com/nagi1/hill-chart.svg?branch=master)](https://travis-ci.com/nagi1/hill-chart) [![Coverage Status](https://coveralls.io/repos/github/nagi1/hill-chart/badge.svg?branch=master)](https://coveralls.io/github/nagi1/hill-chart?branch=master) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/25cb5660479340ecb20f44f3f36dd4ae)](https://www.codacy.com/manual/nagi1/hill-chart?utm_source=github.com&utm_medium=referral&utm_content=nagi1/hill-chart&utm_campaign=Badge_Grade) [![Demo](https://img.shields.io/badge/Demo-Available-success)](https://nagi1.github.io/hill-chart/) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
+[![Build Status](https://travis-ci.com/nagi1/hill-chart.svg?branch=master)](https://travis-ci.com/nagi1/hill-chart) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nagi1/hill-chart/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nagi1/hill-chart/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/nagi1/hill-chart/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/nagi1/hill-chart/?branch=master) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/25cb5660479340ecb20f44f3f36dd4ae)](https://www.codacy.com/manual/nagi1/hill-chart?utm_source=github.com&utm_medium=referral&utm_content=nagi1/hill-chart&utm_campaign=Badge_Grade) [![Demo](https://img.shields.io/badge/Demo-Available-success)](https://nagi1.github.io/hill-chart/) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#contributing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <br/>
@@ -15,7 +15,7 @@
 
 - [x] Implemented in pure ES6/JS using [D3.js](https://d3js.org)
 - [x] Customizable
-- [x] Tested (kinda 😅)
+- [x] Tested ([kinda](#d3-testing-problems) 😅)
 - [x] Easily wrapped and integrated into other UI frameworks
 
 ## Getting started
@@ -219,14 +219,14 @@ data: [
 
 ### Step 3
 
-- **Be sure to include tests**
+- **Be sure to include coverage tests for your awesome idea**
 - Submit a new pull request
 
 ---
 
 ## Todo List
 
-- [ ] Refactor the nasty [`drag()`](https://github.com/nagi1/hill-chart/blob/master/src/index.js#L94) event handler
+- [ ] Refactor this nasty [`drag()`](https://github.com/nagi1/hill-chart/blob/master/src/index.js#L94) event handler
 - [ ] Add more test. **(depends on `drag()` refactoring)**
 - [ ] Add more events, or improve the existence ones
 - [ ] Add dev server/watcher
@@ -234,8 +234,24 @@ data: [
 - [ ] Feature add snow ball effect, add option to increase the point size gradually near the end.
 - [ ] Improve the demo
 - [ ] Fully extract d3 modules
+- [ ] Update rollup config bundles
 
 ---
+
+### D3 testing problems
+
+I tried my best to unit test every use case. It seems that d3js have issues regards event handling in a test environment specially with jest, add on top of this babel which has trouble importing a mutable field from d3 using the import / export syntax.
+
+---
+
+## Theory
+
+If you are wondering, don't be afraid to look under the hood.
+
+Every Step is well documented
+
+- Start from here [src/helpers.js](https://github.com/nagi1/hill-chart/blob/master/src/helpers.js)
+- then here [src/index.js](https://github.com/nagi1/hill-chart/blob/master/src/index.js)
 
 ## Inspiration (credits)
 
