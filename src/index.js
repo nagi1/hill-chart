@@ -68,8 +68,8 @@ export default class HillChart extends EventEmitter {
         color: point.color,
         description: point.description,
         link: point.link,
-        x: point.x,
-        y: hillFn(point.y),
+        x: point.x ? point.x : 0,
+        y: hillFn(point.y ? point.y : 0),
         size: point.size ? point.size : 10,
       };
     });
@@ -96,29 +96,41 @@ export default class HillChart extends EventEmitter {
 
       // Check point movement, preventing it from wondering outside the main curve
       if (x < 0) {
-        that.emit('home', data);
         x = 0;
+        that.emit('home', {
+          ...data,
+          y: hillFnInverse(that.yScale.invert(data.y)),
+        });
       } else if (x > that.chartWidth) {
         x = that.chartWidth;
-        that.emit('end', data);
+        that.emit('end', {
+          ...data,
+          x: that.xScale.invert(that.chartWidth),
+          y: hillFnInverse(that.yScale.invert(data.y)),
+        });
       }
 
+      // Convert current point coordinates back to the original
+      // between 0 and 100 to set it in the data attribute
+      const invertedX = that.xScale.invert(x);
+
+      data.x = x;
+
+      data.y = that.yScale(hillFn(invertedX));
+
+      const invertedY = hillFnInverse(that.yScale.invert(data.y));
+
+      const newInvertedCoordinates = {
+        x: invertedX,
+        y: invertedY,
+      };
+
+      // click event
+      select(this).on('click', () => {
+        that.emit('pointClick', { ...data, ...newInvertedCoordinates });
+      });
+
       if (!that.preview) {
-        // Convert current point coordinates back to the original
-        // between 0 and 100 to set it in the data attribute
-        const invertedX = that.xScale.invert(x);
-
-        data.x = x;
-
-        data.y = that.yScale(hillFn(invertedX));
-
-        const invertedY = hillFnInverse(that.yScale.invert(data.y));
-
-        const newInvertedCoordinates = {
-          x: invertedX,
-          y: invertedY,
-        };
-
         const selectedPoint = select(this).attr(
           'transform',
           `translate(${data.x}, ${data.y})`
@@ -135,9 +147,6 @@ export default class HillChart extends EventEmitter {
             calculateTextPositionForX(point.size, invertedX)
           );
 
-        selectedPoint.on('click', () => {
-          that.emit('PointClick', data);
-        });
         that.emit('move', invertedX, invertedY);
         that.emit('moved', { ...data, ...newInvertedCoordinates });
       }
