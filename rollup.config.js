@@ -11,7 +11,7 @@ import cssnano from 'cssnano';
 
 const production = !process.env.ROLLUP_WATCH;
 const dist = 'dist';
-const bundle = 'bundle';
+const bundle = 'hill-chart';
 const commonOptions = {
   plugins: [
     cjs({
@@ -67,16 +67,8 @@ const withoutD3 = {
   ],
   output: [
     {
-      file: `${dist}/${bundle}.cjs.min.js`,
-      format: 'cjs',
-    },
-    {
-      file: `${dist}/${bundle}.esm.min.js`,
-      format: 'esm',
-    },
-    {
       name: 'HillChart',
-      file: `${dist}/${bundle}.umd.min.js`,
+      file: `${dist}/${bundle}.nod3.umd.js`,
       format: 'umd',
       globals: {
         'd3-selection': 'd3',

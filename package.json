@@ -2,8 +2,11 @@
   "name": "hill-chart",
   "description": "Basecamp's hill chart implementation in d3.js",
   "version": "1.0.0",
-  "main": "dist/bundle.cjs.js",
-  "module": "dist/bundle.esm.js",
+  "main": "dist/hill-chart.cjs.js",
+  "module": "dist/hill-chart.esm.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest",
     "test:coverage": "yarn test --coverage --collectCoverageFrom=src/**/*js --collectCoverageFrom=!src/d3.js",
@@ -12,11 +15,13 @@
     "clean": "rimraf dist",
     "prebuild": "yarn clean",
     "build": "rollup -c",
+    "postbuild": "yarn build:demo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.+(js|json|yml|yaml|css|md)\"",
-    "predeploy": "cp -a dist/. demo/",
-    "deploy": "gh-pages -d demo/ dist/"
+    "build:demo": "cp -a dist/. demo/",
+    "predeploy": "yarn build:demo",
+    "deploy": "gh-pages -d demo/"
   },
   "husky": {
     "hooks": {
@@ -90,7 +95,7 @@
     "rollup-plugin-visualizer": "^4.0.4"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "dependencies": {
     "d3-array": "^2.4.0",
