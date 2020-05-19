@@ -4,7 +4,7 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "extends": ["airbnb-base", "plugin:prettier/recommended", "plugin:jest/all"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -19,6 +19,10 @@
     "comma-style": "warn",
     "comma-dangle": "off",
     "no-param-reassign": "off",
-    "func-names": "off"
+    "func-names": "off",
+    "jest/prefer-strict-equal": "off",
+    "jest/prefer-expect-assertions": "off",
+    "jest/require-top-level-describe": "off",
+    "jest/no-hooks": "off"
   }
 }
