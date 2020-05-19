@@ -30,14 +30,12 @@
   },
   "lint-staged": {
     "*.+(json|css|md|yaml|yml)": [
-      "yarn format",
-      "git add"
+      "yarn format"
     ],
     "*.js": [
       "yarn lint:fix",
       "yarn format",
-      "yarn test:staged",
-      "git add"
+      "yarn test:staged"
     ]
   },
   "repository": {
