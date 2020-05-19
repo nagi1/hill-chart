@@ -299,8 +299,24 @@
       });
       hill.render();
 
-      hill.on('home', (x) => {
-        console.log(x);
+      hill.on('home', (data) => {
+        console.log(`Started Over:`);
+        console.log(data);
+      });
+
+      hill.on('end', (data) => {
+        console.log(`Finished Over:`);
+        console.log(data);
+      });
+
+      hill.on('move', (x, y) => {
+        console.log(`x: ${x}`);
+        console.log(`y: ${y}`);
+      });
+
+      hill.on('moved', (data) => {
+        console.log(`Point moved`);
+        console.log(data);
       });
     </script>
   </body>
