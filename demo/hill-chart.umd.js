@@ -438,17 +438,17 @@
       F(this, t);
     };
   }
-  function Y(t) {
+  function W(t) {
     return function () {
       U(this, t);
     };
   }
-  function G(t, n) {
+  function Y(t, n) {
     return function () {
       (n.apply(this, arguments) ? F : U)(this, t);
     };
   }
-  function W() {
+  function G() {
     this.textContent = '';
   }
   function Z(t) {
@@ -911,11 +911,11 @@
           if (!r.contains(e[i])) return !1;
         return !0;
       }
-      return this.each(('function' == typeof n ? G : n ? X : Y)(e, n));
+      return this.each(('function' == typeof n ? Y : n ? X : W)(e, n));
     },
     text: function (t) {
       return arguments.length
-        ? this.each(null == t ? W : ('function' == typeof t ? K : Z)(t))
+        ? this.each(null == t ? G : ('function' == typeof t ? K : Z)(t))
         : this.node().textContent;
     },
     html: function (t) {
@@ -1041,7 +1041,7 @@
     Ft = new RegExp('^rgba\\(' + [Ht, Ht, Ht, Rt] + '\\)$'),
     Ut = new RegExp('^hsl\\(' + [Rt, Ht, Ht] + '\\)$'),
     Xt = new RegExp('^hsla\\(' + [Rt, Ht, Ht, Rt] + '\\)$'),
-    Yt = {
+    Wt = {
       aliceblue: 15792383,
       antiquewhite: 16444375,
       aqua: 65535,
@@ -1191,10 +1191,10 @@
       yellow: 16776960,
       yellowgreen: 10145074,
     };
-  function Gt() {
+  function Yt() {
     return this.rgb().formatHex();
   }
-  function Wt() {
+  function Gt() {
     return this.rgb().formatRgb();
   }
   function Zt(t) {
@@ -1240,8 +1240,8 @@
         ? an(n[1], n[2] / 100, n[3] / 100, 1)
         : (n = Xt.exec(t))
         ? an(n[1], n[2] / 100, n[3] / 100, n[4])
-        : Yt.hasOwnProperty(t)
-        ? Kt(Yt[t])
+        : Wt.hasOwnProperty(t)
+        ? Kt(Wt[t])
         : 'transparent' === t
         ? new nn(NaN, NaN, NaN, 0)
         : null
@@ -1379,13 +1379,13 @@
     displayable: function () {
       return this.rgb().displayable();
     },
-    hex: Gt,
-    formatHex: Gt,
+    hex: Yt,
+    formatHex: Yt,
     formatHsl: function () {
       return un(this).formatHsl();
     },
-    formatRgb: Wt,
-    toString: Wt,
+    formatRgb: Gt,
+    toString: Gt,
   }),
     Lt(
       nn,
@@ -1893,7 +1893,7 @@
       'Z',
       'Y',
     ];
-  function Yn(t) {
+  function Wn(t) {
     var n,
       e,
       r =
@@ -2046,7 +2046,7 @@
       },
     };
   }
-  function Gn(t, n, e, r) {
+  function Yn(t, n, e, r) {
     var i,
       o = (function (t, n, e) {
         var r = Math.abs(n - t) / Math.max(0, e),
@@ -2103,7 +2103,7 @@
     }
     return Bn(r);
   }
-  function Wn(t) {
+  function Gn(t) {
     var n = t.domain;
     return (
       (t.ticks = function (t) {
@@ -2143,7 +2143,7 @@
       }),
       (t.tickFormat = function (t, e) {
         var r = n();
-        return Gn(r[0], r[r.length - 1], null == t ? 10 : t, e);
+        return Yn(r[0], r[r.length - 1], null == t ? 10 : t, e);
       }),
       (t.nice = function (e) {
         null == e && (e = 10);
@@ -2188,10 +2188,10 @@
         return On(t, Zn());
       }),
       Ct.apply(t, arguments),
-      Wn(t)
+      Gn(t)
     );
   }
-  ($n = Yn({
+  ($n = Wn({
     decimal: '.',
     thousands: ',',
     grouping: [3],
@@ -2848,13 +2848,16 @@
       return 50 * Math.sin((Math.PI / 50) * t - 0.5 * Math.PI) + 50;
     },
     Ce = function (t) {
+      return (25 * (2 * Math.asin((t - 50) / 50) + Math.PI)) / Math.PI;
+    },
+    Le = function (t) {
       return t >= 80 && t <= 100;
     },
-    Le = function (t, n) {
+    ze = function (t, n) {
       var e = t + 5;
-      return Ce(n) ? -1 * e : e;
+      return Le(n) ? -1 * e : e;
     },
-    ze = {
+    De = {
       target: 'svg',
       width: 900,
       height: 300,
@@ -2884,7 +2887,7 @@
             throw new TypeError('Cannot call a class as a function');
         })(this, l),
         (e = c.call(this)),
-        Object.assign(a(e), ze, { data: t }, n),
+        Object.assign(a(e), De, { data: t }, n),
         e.init(),
         e
       );
@@ -2924,8 +2927,8 @@
                 color: t.color,
                 description: t.description,
                 link: t.link,
-                x: t.x,
-                y: Te(t.y),
+                x: t.x ? t.x : 0,
+                y: Te(t.y ? t.y : 0),
                 size: t.size ? t.size : 10,
               };
             });
@@ -2943,40 +2946,47 @@
               e = this,
               i = je().on('drag', function (t) {
                 var n = st.x;
-                if (
-                  (n < 0
-                    ? (e.emit('home', t), (n = 0))
-                    : n > e.chartWidth &&
-                      ((n = e.chartWidth), e.emit('end', t)),
-                  !e.preview)
-                ) {
-                  var i = e.xScale.invert(n);
-                  (t.x = n), (t.y = e.yScale(Te(i)));
-                  var o = (function (t) {
-                      return (
-                        (25 * (2 * Math.asin((t - 50) / 50) + Math.PI)) /
-                        Math.PI
-                      );
-                    })(e.yScale.invert(t.y)),
-                    a = { x: i, y: o },
-                    u = wt(this).attr(
-                      'transform',
-                      'translate('.concat(t.x, ', ').concat(t.y, ')')
-                    );
-                  u
-                    .select('text')
-                    .style('text-anchor', function () {
-                      return Ce(i) ? 'end' : 'start';
-                    })
-                    .attr('x', function (t) {
-                      return Le(t.size, i);
-                    }),
-                    u.on('click', function () {
-                      e.emit('PointClick', t);
-                    }),
+                n < 0
+                  ? ((n = 0),
+                    e.emit(
+                      'home',
+                      r(r({}, t), {}, { y: Ce(e.yScale.invert(t.y)) })
+                    ))
+                  : n > e.chartWidth &&
+                    ((n = e.chartWidth),
+                    e.emit(
+                      'end',
+                      r(
+                        r({}, t),
+                        {},
+                        {
+                          x: e.xScale.invert(e.chartWidth),
+                          y: Ce(e.yScale.invert(t.y)),
+                        }
+                      )
+                    ));
+                var i = e.xScale.invert(n);
+                (t.x = n), (t.y = e.yScale(Te(i)));
+                var o = Ce(e.yScale.invert(t.y)),
+                  a = { x: i, y: o };
+                wt(this).on('click', function () {
+                  e.emit('pointClick', r(r({}, t), a));
+                }),
+                  e.preview ||
+                    (wt(this)
+                      .attr(
+                        'transform',
+                        'translate('.concat(t.x, ', ').concat(t.y, ')')
+                      )
+                      .select('text')
+                      .style('text-anchor', function () {
+                        return Le(i) ? 'end' : 'start';
+                      })
+                      .attr('x', function (t) {
+                        return ze(t.size, i);
+                      }),
                     e.emit('move', i, o),
-                    e.emit('moved', r(r({}, t), a));
-                }
+                    e.emit('moved', r(r({}, t), a)));
               });
             (n = this.preview
               ? this.undraggablePoint()
@@ -3010,10 +3020,10 @@
                   return t.description;
                 })
                 .attr('x', function (n) {
-                  return Le(n.size, t.xScale.invert(n.x));
+                  return ze(n.size, t.xScale.invert(n.x));
                 })
                 .style('text-anchor', function (n) {
-                  return Ce(t.xScale.invert(n.x)) ? 'end' : 'start';
+                  return Le(t.xScale.invert(n.x)) ? 'end' : 'start';
                 })
                 .attr('y', 5);
           },

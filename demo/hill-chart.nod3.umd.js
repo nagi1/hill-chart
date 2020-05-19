@@ -138,7 +138,7 @@
       throw new TypeError('Cannot call a class as a function');
   }
   var g = { emitDelay: 10, strictMode: !1 },
-    m = (function () {
+    x = (function () {
       function t() {
         var e =
           arguments.length <= 0 || void 0 === arguments[0] ? g : arguments[0];
@@ -255,15 +255,18 @@
         t
       );
     })(),
-    x = function (t) {
+    m = function (t) {
       return 50 * Math.sin((Math.PI / 50) * t - 0.5 * Math.PI) + 50;
     },
     b = function (t) {
+      return (25 * (2 * Math.asin((t - 50) / 50) + Math.PI)) / Math.PI;
+    },
+    O = function (t) {
       return t >= 80 && t <= 100;
     },
-    O = function (t, e) {
+    S = function (t, e) {
       var n = t + 5;
-      return b(e) ? -1 * n : n;
+      return O(e) ? -1 * n : n;
     },
     k = {
       target: 'svg',
@@ -340,8 +343,8 @@
                 color: t.color,
                 description: t.description,
                 link: t.link,
-                x: t.x,
-                y: x(t.y),
+                x: t.x ? t.x : 0,
+                y: m(t.y ? t.y : 0),
                 size: t.size ? t.size : 10,
               };
             });
@@ -358,42 +361,49 @@
             var n,
               r = this,
               a = i.drag().on('drag', function (e) {
-                var n,
-                  i = t.event.x;
-                if (
-                  (i < 0
-                    ? (r.emit('home', e), (i = 0))
-                    : i > r.chartWidth &&
-                      ((i = r.chartWidth), r.emit('end', e)),
-                  !r.preview)
-                ) {
-                  var a = r.xScale.invert(i);
-                  (e.x = i), (e.y = r.yScale(x(a)));
-                  var o =
-                      ((n = r.yScale.invert(e.y)),
-                      (25 * (2 * Math.asin((n - 50) / 50) + Math.PI)) /
-                        Math.PI),
-                    c = { x: a, y: o },
-                    s = t
+                var n = t.event.x;
+                n < 0
+                  ? ((n = 0),
+                    r.emit(
+                      'home',
+                      l(l({}, e), {}, { y: b(r.yScale.invert(e.y)) })
+                    ))
+                  : n > r.chartWidth &&
+                    ((n = r.chartWidth),
+                    r.emit(
+                      'end',
+                      l(
+                        l({}, e),
+                        {},
+                        {
+                          x: r.xScale.invert(r.chartWidth),
+                          y: b(r.yScale.invert(e.y)),
+                        }
+                      )
+                    ));
+                var i = r.xScale.invert(n);
+                (e.x = n), (e.y = r.yScale(m(i)));
+                var a = b(r.yScale.invert(e.y)),
+                  o = { x: i, y: a };
+                t.select(this).on('click', function () {
+                  r.emit('pointClick', l(l({}, e), o));
+                }),
+                  r.preview ||
+                    (t
                       .select(this)
                       .attr(
                         'transform',
                         'translate('.concat(e.x, ', ').concat(e.y, ')')
-                      );
-                  s
-                    .select('text')
-                    .style('text-anchor', function () {
-                      return b(a) ? 'end' : 'start';
-                    })
-                    .attr('x', function (t) {
-                      return O(t.size, a);
-                    }),
-                    s.on('click', function () {
-                      r.emit('PointClick', e);
-                    }),
-                    r.emit('move', a, o),
-                    r.emit('moved', l(l({}, e), c));
-                }
+                      )
+                      .select('text')
+                      .style('text-anchor', function () {
+                        return O(i) ? 'end' : 'start';
+                      })
+                      .attr('x', function (t) {
+                        return S(t.size, i);
+                      }),
+                    r.emit('move', i, a),
+                    r.emit('moved', l(l({}, e), o)));
               });
             (n = this.preview
               ? this.undraggablePoint()
@@ -427,10 +437,10 @@
                   return t.description;
                 })
                 .attr('x', function (t) {
-                  return O(t.size, e.xScale.invert(t.x));
+                  return S(t.size, e.xScale.invert(t.x));
                 })
                 .style('text-anchor', function (t) {
-                  return b(e.xScale.invert(t.x)) ? 'end' : 'start';
+                  return O(e.xScale.invert(t.x)) ? 'end' : 'start';
                 })
                 .attr('y', 5);
           },
@@ -464,7 +474,7 @@
           value: function () {
             var t = this;
             (this.mainLineCurvePoints = a.range(0, 100, 0.1).map(function (t) {
-              return { x: t, y: x(t) };
+              return { x: t, y: m(t) };
             })),
               (this.line = r
                 .line()
@@ -532,5 +542,5 @@
       p && o(s, p),
       v
     );
-  })(m);
+  })(x);
 });

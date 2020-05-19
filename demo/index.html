@@ -265,7 +265,7 @@
     <script src="./d3.min.js"></script>
     <script src="./hill-chart.umd.js"></script>
     <script>
-      var data = [
+      const data = [
         {
           color: 'red',
           description: 'Late af task',
@@ -291,7 +291,7 @@
         },
       ];
 
-      var hill = new HillChart(data, {
+      const hill = new HillChart(data, {
         target: '.hill-chart',
         width: 700,
         height: 270,
@@ -299,9 +299,8 @@
       });
       hill.render();
 
-      hill.on('move', (x, y) => {
-        console.log(`x: ${x}`);
-        console.log(`y: ${y}`);
+      hill.on('home', (x) => {
+        console.log(x);
       });
     </script>
   </body>
