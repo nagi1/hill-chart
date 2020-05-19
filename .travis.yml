@@ -1,0 +1,17 @@
+sudo: false
+
+language: node_js
+
+node_js:
+  - 10
+
+script:
+  - yarn lint
+  - yarn format
+  - yarn test:coveralls
+
+notifications:
+  email: false
+
+cache:
+  yarn: true
