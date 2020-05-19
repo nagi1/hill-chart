@@ -1,0 +1,370 @@
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+main {
+  display: block;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+a {
+  background-color: transparent;
+}
+button {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+}
+button::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+button:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+[hidden] {
+  display: none;
+}
+h1 {
+  margin: 0;
+}
+button {
+  background-color: transparent;
+  background-image: none;
+}
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+html {
+  font-family: Graphik, Helvetica Neue, helvetica, Apple Color Emoji, arial,
+    sans-serif;
+  line-height: 1.5;
+}
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 0 solid #e2e8f0;
+}
+button {
+  cursor: pointer;
+}
+h1 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+a {
+  text-decoration: inherit;
+}
+a,
+button {
+  color: inherit;
+}
+button {
+  padding: 0;
+  line-height: inherit;
+}
+svg {
+  display: block;
+  vertical-align: middle;
+}
+.background-primary {
+  background-color: rgba(246, 242, 239, 0.9);
+}
+.bg-white {
+  background-color: #fff;
+}
+.bg-red-500 {
+  background-color: #f56565;
+}
+.bg-green-500 {
+  background-color: #48bb78;
+}
+.border-black {
+  border-color: #000;
+}
+.border-gray-400 {
+  border-color: #cbd5e0;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+.border-2 {
+  border-width: 2px;
+}
+.border {
+  border-width: 1px;
+}
+.inline-block {
+  display: inline-block;
+}
+.flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.hidden {
+  display: none;
+}
+.flex-col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.items-center {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.justify-center {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.justify-between {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.font-bold {
+  font-weight: 700;
+}
+.h-4 {
+  height: 1rem;
+}
+.h-5 {
+  height: 1.25rem;
+}
+.h-6 {
+  height: 1.5rem;
+}
+.h-12 {
+  height: 3rem;
+}
+.h-full {
+  height: 100%;
+}
+.mt-1 {
+  margin-top: 0.25rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-3 {
+  margin-top: 0.75rem;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
+.mt-12 {
+  margin-top: 3rem;
+}
+.max-w-3xl {
+  max-width: 48rem;
+}
+.max-w-4xl {
+  max-width: 56rem;
+}
+.min-h-screen {
+  min-height: 100vh;
+}
+.opacity-100 {
+  opacity: 1;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+.pl-1 {
+  padding-left: 0.25rem;
+}
+.pl-2 {
+  padding-left: 0.5rem;
+}
+.pb-4 {
+  padding-bottom: 1rem;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+.top-0 {
+  top: 0;
+}
+.shadow {
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+.shadow-xl {
+  -webkit-box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.fill-current {
+  fill: currentColor;
+}
+.text-white {
+  color: #fff;
+}
+.text-gray-400 {
+  color: #cbd5e0;
+}
+.text-blue-700 {
+  color: #2b6cb0;
+}
+.text-primary {
+  color: #283c46;
+}
+.text-xs {
+  font-size: 0.75rem;
+}
+.text-sm {
+  font-size: 0.875rem;
+}
+.text-3xl {
+  font-size: 1.875rem;
+}
+.underline {
+  text-decoration: underline;
+}
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+.w-full {
+  width: 100%;
+}
+.z-50 {
+  z-index: 50;
+}
+@media (min-width: 640px) {
+  .sm\:h-8 {
+    height: 2rem;
+  }
+  .sm\:ml-1 {
+    margin-left: 0.25rem;
+  }
+  .sm\:mt-3 {
+    margin-top: 0.75rem;
+  }
+  .sm\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  .sm\:pl-1 {
+    padding-left: 0.25rem;
+  }
+  .sm\:pb-3 {
+    padding-bottom: 0.75rem;
+  }
+  .sm\:text-sm {
+    font-size: 0.875rem;
+  }
+}
+@media (min-width: 768px) {
+  .md\:border-b-2 {
+    border-bottom-width: 2px;
+  }
+  .md\:inline-block {
+    display: inline-block;
+  }
+  .md\:flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .md\:hidden {
+    display: none;
+  }
+  .md\:flex-row {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+  .md\:justify-between {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+  .md\:h-5 {
+    height: 1.25rem;
+  }
+  .md\:h-8 {
+    height: 2rem;
+  }
+  .md\:py-5 {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+  .md\:px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+  .md\:pl-5 {
+    padding-left: 1.25rem;
+  }
+  .md\:text-base {
+    font-size: 1rem;
+  }
+}
