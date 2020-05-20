@@ -183,7 +183,7 @@
 
               <div class="flex items-center">
                 <a class="text-blue-700 underline font-semibold" href="#">
-                  Boring Porject
+                  Boring Project
                 </a>
 
                 <svg
@@ -271,7 +271,7 @@
 
     <script src="https://unpkg.com/hill-chart@latest/dist/d3.min.js" />
     <script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.nod3.umd.js" />
-    <script>
+    <script type="text/javascript">
       const data = [
         {
           color: 'red',
@@ -323,11 +323,6 @@
 
       hill.on('moved', (data) => {
         console.log(`Point moved`);
-        console.log(data);
-      });
-
-      hill.on('pointClick', (data) => {
-        console.log(`Point clicked`);
         console.log(data);
       });
     </script>
