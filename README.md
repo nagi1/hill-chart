@@ -34,6 +34,15 @@ npm i hill-chart
 
 <br/>
 
+Include styles ~ 1kb (god-knows gizp)
+
+```html
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/hill-chart@latest/dist/styles.css"
+/>
+```
+
 Using CDN including custom d3js bundled ~ 48kb (16kb gizp)
 
 ```html
@@ -59,6 +68,9 @@ hill chart only minified ~8kb (2kb gzip)
 2. define some points
 
 ```js
+// if dont want to use cdn
+import 'hill-chart/styles.css';
+
 import HillChart from 'hill-chart';
 
 const data = [

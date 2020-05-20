@@ -58,7 +58,7 @@
     "email": "bugs@ahmednagi.com",
     "url": "https://github.com/nagi1/hill-chart/issues"
   },
-  "homepage": "https://github.com/nagi1/hill-chart#readme",
+  "homepage": "https://nagi1.github.io/hill-chart/",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-transform-modules-commonjs": "^7.9.6",
