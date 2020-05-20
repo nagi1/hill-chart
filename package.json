@@ -15,18 +15,14 @@
     "clean": "rimraf dist",
     "prebuild": "yarn clean",
     "build": "rollup -c",
-    "postbuild": "yarn build:demo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.+(js|json|yml|yaml|css|md)\"",
-    "build:demo": "cp -a dist/. demo/",
-    "predeploy": "yarn build:demo",
     "deploy": "gh-pages -d demo/"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn deploy"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {

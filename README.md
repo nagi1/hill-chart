@@ -37,7 +37,7 @@ npm i hill-chart
 Using CDN including custom d3js bundled ~ 48kb (16kb gizp)
 
 ```html
-<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.udm.js" />
+<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.umd.js" />
 ```
 
 or CDN for the custom d3js bundle minified ~ 41kb (14 gizp)
@@ -49,15 +49,18 @@ or CDN for the custom d3js bundle minified ~ 41kb (14 gizp)
 hill chart only minified ~8kb (2kb gzip)
 
 ```html
-<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.udm.js" />
+<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.nod3.umd.js" />
 ```
 
 ## Usage
 
 1. make sure to have empty `<svg />` on your dom
+
 2. define some points
 
 ```js
+import HillChart from 'hill-chart';
+
 const data = [
   {
     color: 'red',
@@ -233,6 +236,7 @@ data: [
 - [ ] Extract to vue components
 - [ ] Feature add snow ball effect, add option to increase the point size gradually near the end.
 - [ ] Improve the demo
+- [ ] Add SSR demo
 - [ ] Fully extract d3 modules
 - [ ] Update rollup config bundles
 
