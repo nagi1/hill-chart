@@ -34,7 +34,9 @@ npm i hill-chart
 
 <br/>
 
-Include styles ~ 1kb (god-knows gizp)
+Or Using CDN
+
+Chart styles ~ 1kb
 
 ```html
 <link
@@ -43,27 +45,33 @@ Include styles ~ 1kb (god-knows gizp)
 />
 ```
 
-Using CDN including custom d3js bundled ~ 48kb (16kb gizp)
+the whole bundle including d3js ~ 48kb (16kb gizp)
 
 ```html
-<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.umd.js" />
+<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.umd.js"></script>
 ```
 
-or CDN for the custom d3js bundle minified ~ 41kb (14 gizp)
+---
+
+Or if you prefer D3js and hill-chart separate bundles
+
+Custom d3js **only** minified ~ 41kb (14 gizp)
 
 ```html
-<script src="https://unpkg.com/hill-chart@latest/dist/d3.min.js" />
+<script src="https://unpkg.com/hill-chart@latest/dist/d3.min.js"></script>
 ```
 
 hill chart only minified ~8kb (2kb gzip)
 
 ```html
-<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.nod3.umd.js" />
+<script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.nod3.umd.js"></script>
 ```
+
+---
 
 ## Usage
 
-1. make sure to have empty `<svg />` on your dom
+1. make sure to have empty with an id or class `<svg class="hill-chart" />` on your dom
 
 2. define some points
 
@@ -125,13 +133,13 @@ hill.on('move', (x, y) => {
 
 ### Config (Object)
 
-all default config can be override by passing `config` object to the `HillChart` instance.
+All default config can be override by passing `config` object to the `HillChart` instance.
 
 ```js
 const config = {
+  target: 'svg', // element selector it could be class, id, or svg element on page but it has to be an <svg /> element
   width: 900, // chart width
   height: 300, // chart height
-  target: 'svg', // element selector it could be class, id, or svg element on page but it has to be an <svg /> element
   preview: false, // if true points wont be draggable
   margin: {
     // the margins of the inner chart from the svg frame
