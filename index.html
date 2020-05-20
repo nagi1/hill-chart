@@ -222,7 +222,11 @@
                     class="flex items-center rounded-full py-2 px-3 bg-green-500 text-white text-sm space-x-1"
                     @click.prevent="showCreateList = true"
                   >
-                    <span class="tracking-tight font-bold text-base">Docs</span>
+                    <a
+                      href="https://github.com/nagi1/hill-chart"
+                      class="tracking-tight font-bold text-base"
+                      >Docs</a
+                    >
                   </button>
                   <!-- title -->
                   <div class="flex items-center space-x-2 hidden md:flex">
@@ -262,8 +266,8 @@
     </div>
     <!-- /App -->
 
-    <script src="./d3.min.js"></script>
-    <script src="./hill-chart.umd.js"></script>
+    <script src="https://unpkg.com/hill-chart@latest/dist/d3.min.js" />
+    <script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.nod3.umd.js" />
     <script>
       const data = [
         {
@@ -316,6 +320,11 @@
 
       hill.on('moved', (data) => {
         console.log(`Point moved`);
+        console.log(data);
+      });
+
+      hill.on('pointClick', (data) => {
+        console.log(`Point clicked`);
         console.log(data);
       });
     </script>
