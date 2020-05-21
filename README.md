@@ -77,7 +77,7 @@ hill chart only minified ~8kb (2kb gzip)
 
 ```js
 // if dont want to use cdn
-import 'hill-chart/styles.css';
+import 'hill-chart/dist/styles.css';
 
 import HillChart from 'hill-chart';
 
