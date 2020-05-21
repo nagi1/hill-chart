@@ -4,6 +4,7 @@
   "version": "1.0.4",
   "main": "dist/hill-chart.cjs.js",
   "module": "dist/hill-chart.esm.js",
+  "style": "dist/styles.css",
   "files": [
     "dist"
   ],
