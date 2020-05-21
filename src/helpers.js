@@ -19,3 +19,5 @@ export const calculateTextPositionForX = (size, x) => {
 };
 
 export const calculateTextMarginForY = () => 5;
+
+export const uId = () => Math.random().toString(36).slice(-6);

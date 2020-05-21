@@ -14,6 +14,7 @@ import {
   textOutRange,
   calculateTextPositionForX,
   calculateTextMarginForY,
+  uId,
 } from './helpers';
 import './styles.css';
 
@@ -65,6 +66,7 @@ export default class HillChart extends EventEmitter {
   normalizeData() {
     this.data = this.data.map((point) => {
       return {
+        id: point.id ? point.id : uId(),
         color: point.color,
         description: point.description,
         link: point.link,

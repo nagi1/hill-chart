@@ -1,11 +1,13 @@
+import { range } from 'd3-array';
 import {
   hillFn,
   hillFnInverse,
   textOutRange,
   calculateTextPositionForX,
+  uId,
 } from '../src/helpers';
 
-describe('hill chart function', () => {
+describe('hill chart helper', () => {
   it('computes correct values', () => {
     expect.hasAssertions();
     expect(hillFn(0)).toEqual(0);
@@ -15,7 +17,7 @@ describe('hill chart function', () => {
   });
 });
 
-describe('hill chart inverse function', () => {
+describe('hill chart inverse helper', () => {
   it('computes correct values', () => {
     expect.hasAssertions();
     expect(hillFnInverse(0)).toEqual(0);
@@ -25,7 +27,7 @@ describe('hill chart inverse function', () => {
   });
 });
 
-describe('out of range function', () => {
+describe('out of range helper', () => {
   it('returns true when passed value between 80 and 100', () => {
     expect.hasAssertions();
     expect(textOutRange(20)).toBe(false);
@@ -34,7 +36,20 @@ describe('out of range function', () => {
   });
 });
 
-describe('calculate text position on x axis', () => {
+describe('uId helper', () => {
+  it('generates random IDs', () => {
+    expect.hasAssertions();
+
+    const data = range(1, 1000).map(() => uId());
+
+    const isArrayUnique = (arr) =>
+      Array.isArray(arr) && new Set(arr).size === arr.length;
+
+    expect(isArrayUnique(data)).toBe(true);
+  });
+});
+
+describe('calculate text position on x axis helper', () => {
   it('returns positive value if text isnt out of range and negative it is. based on the point size and x axis position', () => {
     expect.hasAssertions();
     let pointSize = 10;

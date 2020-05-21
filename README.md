@@ -83,6 +83,7 @@ import HillChart from 'hill-chart';
 
 const data = [
   {
+    id: '3' // (optional)
     color: 'red',
     description: 'Late af task',
     size: 10,
@@ -92,6 +93,7 @@ const data = [
   },
 
   {
+    id: '1' // (optional)
     color: 'yellow',
     description: 'Gettin there',
     size: 10,
@@ -99,6 +101,7 @@ const data = [
     y: 44.88372093023257,
   },
   {
+    id: '2' // (optional)
     color: 'green',
     description: 'Hell yeah!',
     x: 93.48837209302326,
@@ -160,6 +163,7 @@ You can define as may points as you want as long as the it have these options
 ```js
 data: [
   {
+          id: 'd4f4sd', // (optional) any unique id, if not provided it'll be auto generated for you.
           color: 'red', // color of the point it can be named color 'blue', 'red' or hex #000fff, #cccccc
           description: 'Late af task', // text next to the point, it's recommended to keep it short
           size: 10, // (optional) default size of the point

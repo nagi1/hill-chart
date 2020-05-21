@@ -59,11 +59,21 @@ describe('hillchart@init', () => {
   });
 
   it('normalizes data by providing default point size of 10', () => {
-    const hill = setupHillChart();
     data = data.map((d) => delete d.size);
+    const hill = setupHillChart();
     hill.data.forEach((point) => {
       expect(point.size).toEqual(10);
     });
+  });
+
+  it('sets random id per point if is not provided', () => {
+    const hill = setupHillChart();
+
+    const pointIds = hill.data.map((point) => point.id);
+    const isArrayUnique = (arr) =>
+      Array.isArray(arr) && new Set(arr).size === arr.length;
+
+    expect(isArrayUnique(pointIds)).toBe(true);
   });
 
   it('renders the svg and center the chart according to margins', () => {
