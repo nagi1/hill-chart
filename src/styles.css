@@ -15,7 +15,7 @@
   stroke: #cbd5e0;
   stroke-width: 2.09px;
   shape-rendering: crispEdges;
-  stroke-dasharray: 10, 10;
+  stroke-dasharray: 5, 5;
 }
 
 .hill-chart-bottom-line path {
@@ -24,10 +24,10 @@
 }
 
 .hill-chart-text {
-  font-family: Helvetica, sans-serif;
+  font-family: inherit;
   text-transform: uppercase;
-  fill: rgb(148, 148, 148);
-  font-weight: bold;
+  fill: #646464;
+  letter-spacing: 0.05rem;
   text-anchor: middle;
   shape-rendering: crispEdges;
   -webkit-font-smoothing: antialiased;
@@ -39,6 +39,7 @@
 }
 
 .hill-chart-group > text {
+  font-family: inherit;
   text-anchor: start;
   shape-rendering: crispEdges;
   -webkit-font-smoothing: antialiased;
