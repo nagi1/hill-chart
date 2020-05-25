@@ -1,7 +1,7 @@
 {
   "name": "hill-chart",
   "description": "Basecamp's hill chart implementation in d3.js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "dist/hill-chart.cjs.js",
   "module": "dist/hill-chart.esm.js",
   "style": "dist/styles.css",
