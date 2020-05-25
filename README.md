@@ -144,6 +144,11 @@ const config = {
   width: 900, // chart width
   height: 300, // chart height
   preview: false, // if true points wont be draggable
+  footerText: {
+    // control footer text
+    show: true,
+    fontSize: 0.75, // in rems
+  },
   margin: {
     // the margins of the inner chart from the svg frame
     top: 20,

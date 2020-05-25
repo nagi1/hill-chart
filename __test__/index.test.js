@@ -12,6 +12,10 @@ beforeEach(() => {
     width: 900,
     height: 270,
     preview: false,
+    footerText: {
+      show: true,
+      fontSize: 0.75,
+    },
     margin: {
       top: 20,
       right: 20,
@@ -116,14 +120,38 @@ describe('hillchart@render', () => {
   });
 
   it('renders the footer text correctly', () => {
+    config.footerText.fontSize = 1;
+
     const hill = setupHillChart();
     hill.render();
 
     expect(
+      svg
+        .getElementsByClassName('hill-chart-text')[0]
+        .style.getPropertyValue('font-size')
+    ).toBe('1rem');
+
+    expect(
       svg.getElementsByClassName('hill-chart-text')[0].innerHTML
     ).toContain('Figuring things out');
+
+    expect(
+      svg
+        .getElementsByClassName('hill-chart-text')[1]
+        .style.getPropertyValue('font-size')
+    ).toBe('1rem');
     expect(
       svg.getElementsByClassName('hill-chart-text')[1].innerHTML
     ).toContain('Making it happen');
+  });
+
+  it('dosent render the footer text if specified', () => {
+    config.footerText.show = false;
+
+    const hill = setupHillChart();
+    hill.render();
+
+    expect(svg.getElementsByClassName('hill-chart-text')[0]).toBeUndefined();
+    expect(svg.getElementsByClassName('hill-chart-text')[1]).toBeUndefined();
   });
 });
