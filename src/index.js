@@ -23,6 +23,10 @@ const defaults = {
   width: 900,
   height: 300,
   preview: false,
+  footerText: {
+    show: true,
+    fontSize: 0.75,
+  },
   margin: {
     top: 20,
     right: 20,
@@ -87,8 +91,10 @@ export default class HillChart extends EventEmitter {
     // Render the line in the middle
     this.renderMiddleLine();
 
-    // Render the text on the footer
-    this.renderFooterText();
+    if (this.footerText.show) {
+      // Render the text on the footer
+      this.renderFooterText();
+    }
 
     const that = this;
 
@@ -262,14 +268,16 @@ export default class HillChart extends EventEmitter {
       .append('text')
       .attr('class', 'hill-chart-text')
       .text('Figuring things out')
+      .style('font-size', `${this.footerText.fontSize}rem`)
       .attr('x', this.xScale(25))
-      .attr('y', this.chartHeight + 25);
+      .attr('y', this.chartHeight + 30);
 
     this.svg
       .append('text')
       .attr('class', 'hill-chart-text')
       .text('Making it happen')
+      .style('font-size', `${this.footerText.fontSize}rem`)
       .attr('x', this.xScale(75))
-      .attr('y', this.chartHeight + 25);
+      .attr('y', this.chartHeight + 30);
   }
 }
