@@ -29,7 +29,6 @@ beforeEach(() => {
       description: 'Late af task',
       size: 10,
       x: 12.069770990416055,
-      y: 12.069770990416057,
       link: '/fired.html',
     },
 
@@ -44,7 +43,6 @@ beforeEach(() => {
       color: 'green',
       description: 'Hell yeah!',
       x: 93.48837209302326,
-      y: 6.511627906976724,
       size: 10,
     },
   ];
@@ -55,10 +53,21 @@ function setupHillChart() {
 }
 
 describe('hillchart@init', () => {
-  it('normalizes data by plugging y on provided data to hillfn', () => {
+  it('normalizes data by plugging x on provided data to hillfn', () => {
     const hill = setupHillChart();
     hill.data.forEach((point, index) => {
-      expect(point.y).toEqual(hillFn(data[index].y));
+      if (typeof data[index].y === 'undefined') {
+        expect(point.y).toEqual(hillFn(data[index].x));
+      }
+    });
+  });
+
+  it('uses the supplied y value if defined', () => {
+    const hill = setupHillChart();
+    hill.data.forEach((point, index) => {
+      if (typeof data[index].y !== 'undefined') {
+        expect(point.y).toEqual(data[index].y);
+      }
     });
   });
 

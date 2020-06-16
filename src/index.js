@@ -75,7 +75,7 @@ export default class HillChart extends EventEmitter {
         description: point.description,
         link: point.link,
         x: point.x ? point.x : 0,
-        y: hillFn(point.y ? point.y : 0),
+        y: point.y ? point.y : hillFn(point.x ? point.x : 0),
         size: point.size ? point.size : 10,
       };
     });
