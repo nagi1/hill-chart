@@ -81,6 +81,42 @@ export default class HillChart extends EventEmitter {
     });
   }
 
+  // Replace the data points
+  replaceData(data) {
+    // Update and normalize the data
+    Object.assign(this, { data });
+    this.normalizeData();
+  }
+
+  // Replace the data points, and re-render the group
+  replaceAndUpdate(data) {
+    // Update and normalize the data
+    this.replaceData(data);
+
+    // Remove the existing points
+    this.svg.selectAll('.hill-chart-group').remove();
+
+    // Render group of points
+    this.renderGroup();
+  }
+
+  undraggablePoint() {
+    return this.svg
+      .selectAll('.hill-chart-group')
+      .data(this.data)
+      .enter()
+      .append('a')
+      .attr('href', (data) => (data.link ? data.link : '#'))
+      .append('g')
+      .attr('class', 'hill-chart-group')
+      .style('cursor', 'pointer')
+      .attr('transform', (data) => {
+        data.x = this.xScale(data.x);
+        data.y = this.yScale(data.y);
+        return `translate(${data.x}, ${data.y})`;
+      });
+  }
+
   render() {
     // Render the horizontal bottom line on X axis
     this.renderBottomLine(5);
@@ -96,6 +132,11 @@ export default class HillChart extends EventEmitter {
       this.renderFooterText();
     }
 
+    // Render the group on the chart
+    this.renderGroup();
+  }
+
+  renderGroup() {
     const that = this;
 
     // Handle dragging
@@ -202,23 +243,6 @@ export default class HillChart extends EventEmitter {
         return 'start';
       })
       .attr('y', calculateTextMarginForY());
-  }
-
-  undraggablePoint() {
-    return this.svg
-      .selectAll('.hill-chart-group')
-      .data(this.data)
-      .enter()
-      .append('a')
-      .attr('href', (data) => (data.link ? data.link : '#'))
-      .append('g')
-      .attr('class', 'hill-chart-group')
-      .style('cursor', 'pointer')
-      .attr('transform', (data) => {
-        data.x = this.xScale(data.x);
-        data.y = this.yScale(data.y);
-        return `translate(${data.x}, ${data.y})`;
-      });
   }
 
   renderMainCurve() {
