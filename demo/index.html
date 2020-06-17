@@ -332,10 +332,16 @@
         },
       ];
 
+      const qs = window.location.search || '';
+      const darkMode = qs.indexOf('darkMode=true') > -1;
+      const backgroundColor = darkMode ? true : false;
+
       const hill = new HillChart(data, {
         target: '.hill-chart',
         width: 700,
         height: 270,
+        darkMode,
+        backgroundColor,
         preview: false,
         footerText: {
           show: true,

@@ -115,6 +115,51 @@ describe('hillchart@init', () => {
       `translate(${config.margin.left}, ${config.margin.top})`
     );
   });
+
+  it('defaults to a transparent background', () => {
+    setupHillChart();
+    expect(svg.getAttribute('style')).toEqual(
+      'stroke-width: 0; background-color: transparent;'
+    );
+  });
+
+  it('defaults to a light theme', () => {
+    const hill = setupHillChart();
+    expect(hill.darkMode).toEqual(false);
+    expect(svg.getAttribute('class')).toEqual('hill-chart-light');
+  });
+
+  it('supports enabling dark mode', () => {
+    config.darkMode = true;
+    const hill = setupHillChart();
+    expect(hill.darkMode).toEqual(true);
+    expect(svg.getAttribute('class')).toEqual('hill-chart-dark');
+  });
+
+  it('defaults to the appropriate light mode backgroundColor', () => {
+    config.backgroundColor = true;
+    setupHillChart();
+    expect(svg.getAttribute('style')).toEqual(
+      'stroke-width: 0; background-color: #ffffff;'
+    );
+  });
+
+  it('defaults to the appropriate dark mode backgroundColor', () => {
+    config.backgroundColor = true;
+    config.darkMode = true;
+    setupHillChart();
+    expect(svg.getAttribute('style')).toEqual(
+      'stroke-width: 0; background-color: #2f3437;'
+    );
+  });
+
+  it('supports defining a specific backgroundColor', () => {
+    config.backgroundColor = '#000';
+    setupHillChart();
+    expect(svg.getAttribute('style')).toEqual(
+      'stroke-width: 0; background-color: #000;'
+    );
+  });
 });
 
 describe('hillchart@render', () => {
