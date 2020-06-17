@@ -266,9 +266,7 @@
                 id="replaceData"
                 @click.prevent="showCreateList = true"
               >
-                <a
-                  href="#"
-                  class="tracking-tight font-bold text-base"
+                <a href="#" class="tracking-tight font-bold text-base"
                   >Replace Data</a
                 >
               </button>
@@ -337,7 +335,6 @@
         },
       ];
 
-
       const hill = new HillChart(data, {
         target: '.hill-chart',
         width: 700,
@@ -370,10 +367,10 @@
         console.log(data);
       });
 
-      document.getElementById("replaceData").addEventListener("click", (e) => {
+      document.getElementById('replaceData').addEventListener('click', (e) => {
         e.preventDefault();
-        hill.replaceDataAndRender(updatedData)
-      })
+        hill.replaceAndUpdate(updatedData);
+      });
     </script>
   </body>
 </html>
