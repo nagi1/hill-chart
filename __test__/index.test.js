@@ -4,6 +4,7 @@ import { hillFn } from '../src/helpers';
 let svg;
 let config;
 let data;
+let replacementData;
 
 beforeEach(() => {
   svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -29,7 +30,6 @@ beforeEach(() => {
       description: 'Late af task',
       size: 10,
       x: 12.069770990416055,
-      y: 12.069770990416057,
       link: '/fired.html',
     },
 
@@ -44,8 +44,24 @@ beforeEach(() => {
       color: 'green',
       description: 'Hell yeah!',
       x: 93.48837209302326,
-      y: 6.511627906976724,
       size: 10,
+    },
+  ];
+  replacementData = [
+    {
+      color: 'black',
+      description: 'Another one',
+      x: 0,
+    },
+    {
+      color: 'purple',
+      description: 'For you',
+      x: 60,
+    },
+    {
+      color: 'goldenrod',
+      description: 'To complete',
+      x: 100,
     },
   ];
 });
@@ -55,10 +71,21 @@ function setupHillChart() {
 }
 
 describe('hillchart@init', () => {
-  it('normalizes data by plugging y on provided data to hillfn', () => {
+  it('normalizes data by plugging x on provided data to hillfn', () => {
     const hill = setupHillChart();
     hill.data.forEach((point, index) => {
-      expect(point.y).toEqual(hillFn(data[index].y));
+      if (typeof data[index].y === 'undefined') {
+        expect(point.y).toEqual(hillFn(data[index].x));
+      }
+    });
+  });
+
+  it('uses the supplied y value if defined', () => {
+    const hill = setupHillChart();
+    hill.data.forEach((point, index) => {
+      if (typeof data[index].y !== 'undefined') {
+        expect(point.y).toEqual(data[index].y);
+      }
     });
   });
 
@@ -153,5 +180,28 @@ describe('hillchart@render', () => {
 
     expect(svg.getElementsByClassName('hill-chart-text')[0]).toBeUndefined();
     expect(svg.getElementsByClassName('hill-chart-text')[1]).toBeUndefined();
+  });
+});
+
+describe('hillchart@replaceData', () => {
+  it('replaces the dataset with the provided input', () => {
+    const hill = setupHillChart();
+    hill.replaceData(replacementData);
+    hill.data.forEach((point, index) => {
+      expect(point.color).toEqual(replacementData[index].color);
+      expect(point.description).toEqual(replacementData[index].description);
+      expect(point.x).toEqual(replacementData[index].x);
+    });
+  });
+  it('normalizes the data set', () => {
+    const hill = setupHillChart();
+    hill.replaceData(replacementData);
+    hill.data.forEach((point, index) => {
+      expect(point.id).toBeDefined();
+      expect(point.id).not.toEqual(data[index].id);
+      expect(point.y).toEqual(hillFn(point.x));
+      expect(point.size).toEqual(10);
+      expect(point.link).not.toBeDefined();
+    });
   });
 });

@@ -261,6 +261,17 @@
               <div class="mt-10 flex justify-center space-y-5">
                 <svg class="hill-chart" />
               </div>
+              <button
+                class="flex items-center rounded-full py-2 px-3 bg-blue-500 text-white text-sm space-x-1"
+                id="replaceData"
+                @click.prevent="showCreateList = true"
+              >
+                <a
+                  href="#"
+                  class="tracking-tight font-bold text-base"
+                  >Replace Data</a
+                >
+              </button>
             </div>
           </div>
         </article>
@@ -298,6 +309,35 @@
         },
       ];
 
+      const updatedData = [
+        {
+          color: 'red',
+          description: 'Late af task',
+          size: 10,
+          x: 30,
+          link: '/fired.html',
+        },
+        {
+          color: 'yellow',
+          description: 'Gettin there',
+          size: 10,
+          x: 75,
+        },
+        {
+          color: 'green',
+          description: 'Hell yeah!',
+          x: 100,
+          size: 10,
+        },
+        {
+          color: 'blue',
+          description: 'Forgot about Dre',
+          size: 10,
+          x: 0,
+        },
+      ];
+
+
       const hill = new HillChart(data, {
         target: '.hill-chart',
         width: 700,
@@ -329,6 +369,11 @@
         console.log(`Point moved`);
         console.log(data);
       });
+
+      document.getElementById("replaceData").addEventListener("click", (e) => {
+        e.preventDefault();
+        hill.replaceDataAndRender(updatedData)
+      })
     </script>
   </body>
 </html>
