@@ -6,7 +6,7 @@ node_js:
   - 10
 
 script:
-  - yarn lint
+  - yarn lint --fix
   - yarn format
   - yarn test:coveralls
 
