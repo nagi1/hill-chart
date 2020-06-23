@@ -53,18 +53,18 @@ export default class HillChart extends EventEmitter {
     this.chartHeight = height - margin.top - margin.bottom;
 
     // Render the svg and center chart according to margins
-    const colorScheme = this.darkMode ? 'hill-chart-dark' : 'hill-chart-light';
+    this.colorScheme = this.darkMode ? 'hill-chart-dark' : 'hill-chart-light';
     const defaultBg = this.darkMode ? '#2f3437' : '#ffffff';
     const useDefaultBg = this.backgroundColor === true;
     const useTransparentBg = this.backgroundColor === false;
     const suppliedBgColor = useDefaultBg ? defaultBg : this.backgroundColor;
-    const backgroundColor = useTransparentBg ? 'transparent' : suppliedBgColor;
+    this.backgroundColor = useTransparentBg ? 'transparent' : suppliedBgColor;
 
     this.svg = select(target)
-      .attr('class', colorScheme)
+      .attr('class', this.colorScheme)
       .attr('width', width)
       .attr('height', height)
-      .attr('style', `stroke-width: 0; background-color: ${backgroundColor};`)
+      .attr('style', `stroke-width: 0; background-color: ${this.backgroundColor};`)
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
