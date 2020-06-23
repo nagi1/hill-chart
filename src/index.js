@@ -64,7 +64,10 @@ export default class HillChart extends EventEmitter {
       .attr('class', this.colorScheme)
       .attr('width', width)
       .attr('height', height)
-      .attr('style', `stroke-width: 0; background-color: ${this.backgroundColor};`)
+      .attr(
+        'style',
+        `stroke-width: 0; background-color: ${this.backgroundColor};`
+      )
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
