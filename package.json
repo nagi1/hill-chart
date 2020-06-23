@@ -8,6 +8,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "test": "jest",
     "test:coverage": "yarn test --coverage --collectCoverageFrom=src/**/*js --collectCoverageFrom=!src/d3.js",
