@@ -136,6 +136,14 @@ describe('hillchart@init', () => {
     expect(svg.getAttribute('class')).toEqual('hill-chart-dark');
   });
 
+  it('defaults to the appropriate light mode backgroundColor, with no argument', () => {
+    config.backgroundColor = undefined;
+    setupHillChart();
+    expect(svg.getAttribute('style')).toEqual(
+      'stroke-width: 0; background-color: #ffffff;'
+    );
+  });
+
   it('defaults to the appropriate light mode backgroundColor', () => {
     config.backgroundColor = true;
     setupHillChart();
