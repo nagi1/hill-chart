@@ -17,7 +17,7 @@
 - [x] Customizable
 - [x] Tested ([kinda](#d3-testing-problems) 😅)
 - [x] Easily wrapped and integrated into other UI frameworks
-- [x] Dark mode by [https://github.com/jeffandersen](@jeffandersen)
+- [x] Dark mode by @jeffandersen
 
 
 ## Getting started
