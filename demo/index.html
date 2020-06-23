@@ -258,18 +258,31 @@
                 </div>
               </div>
 
-              <div class="mt-10 flex justify-center space-y-5">
-                <svg class="hill-chart" />
+              <div class="mt-10 flex justify-center space-y-5" id="canvas">
+                <svg id="hill-chart" />
               </div>
-              <button
-                class="flex items-center rounded-full py-2 px-3 bg-blue-500 text-white text-sm space-x-1"
-                id="replaceData"
-                @click.prevent="showCreateList = true"
-              >
-                <a href="#" class="tracking-tight font-bold text-base"
-                  >Replace Data</a
+
+              <div class="flex" style="margin-top: 1em;">
+                <button
+                  class="flex items-center rounded-full py-2 px-3 bg-blue-500 text-white text-sm space-x-1"
+                  style="margin-right: 1em;"
+                  id="replaceData"
+                  @click.prevent="showCreateList = true"
                 >
-              </button>
+                  <a href="#" class="tracking-tight font-bold text-base"
+                    >Replace Data</a
+                  >
+                </button>
+                <button
+                  class="flex items-center rounded-full py-2 px-3 bg-blue-500 text-white text-sm space-x-1"
+                  id="darkMode"
+                  @click.prevent="showCreateList = true"
+                >
+                  <a href="#" class="tracking-tight font-bold text-base"
+                    >Dark Mode</a
+                  >
+                </button>
+              </div>
             </div>
           </div>
         </article>
@@ -287,6 +300,7 @@
           description: 'Late af task',
           size: 10,
           x: 12.069770990416055,
+          y: 13.701965652222704, // optionally, provide a specific Y value
           link: '/fired.html',
         },
 
@@ -316,7 +330,7 @@
           color: 'yellow',
           description: 'Gettin there',
           size: 10,
-          x: 50,
+          x: 60,
         },
         {
           color: 'green',
@@ -328,51 +342,80 @@
           color: 'blue',
           description: 'Forgot about Dre',
           size: 10,
-          x: 65,
+          x: 50,
         },
       ];
 
-      const qs = window.location.search || '';
-      const darkMode = qs.indexOf('darkMode=true') > -1;
-      const backgroundColor = darkMode ? true : false;
-
-      const hill = new HillChart(data, {
-        target: '.hill-chart',
+      const options = {
+        target: '#hill-chart',
         width: 700,
         height: 270,
-        darkMode,
-        backgroundColor,
         preview: false,
         footerText: {
           show: true,
           fontSize: 0.75, // rem
         },
-      });
+      }
+
+      function createAndRenderHill(data, options) {
+        const hill = new HillChart(data, options)
+
+        hill.on('home', (data) => {
+          console.log(`Started Over:`);
+          console.log(data);
+        });
+
+        hill.on('end', (data) => {
+          console.log(`Finished Over:`);
+          console.log(data);
+        });
+
+        hill.on('move', (x, y) => {
+          console.log(`x: ${x}`);
+          console.log(`y: ${y}`);
+        });
+
+        hill.on('moved', (data) => {
+          console.log(`Point moved`);
+          console.log(data);
+        });
+
+        return hill;
+      }
+
+      let hill = createAndRenderHill(data, options)
       hill.render();
 
-      hill.on('home', (data) => {
-        console.log(`Started Over:`);
-        console.log(data);
-      });
+      // Handle enable dark mode
+      document.getElementById('darkMode').addEventListener('click', (e) => {
+        e.preventDefault();
 
-      hill.on('end', (data) => {
-        console.log(`Finished Over:`);
-        console.log(data);
-      });
+        // Reset the svg styling
+        hill.svg.className = '';
+        hill.svg.selectAll('*').remove();
 
-      hill.on('move', (x, y) => {
-        console.log(`x: ${x}`);
-        console.log(`y: ${y}`);
-      });
+        // Re-render the hill chart in dark mode
+        const darkMode = e.target.innerText === 'Dark Mode'? true : false;
+        hill = createAndRenderHill(data, Object.assign({}, options, {
+          darkMode,
+          backgroundColor: darkMode,
+        }));
+        hill.render();
 
-      hill.on('moved', (data) => {
-        console.log(`Point moved`);
-        console.log(data);
+        // Change button text for toggle
+        e.target.innerText = darkMode ? 'Light Mode' : 'Dark Mode';
       });
 
       document.getElementById('replaceData').addEventListener('click', (e) => {
         e.preventDefault();
-        hill.replaceAndUpdate(updatedData);
+        const reset = e.target.innerText.indexOf('Reset') > -1;
+
+        // Variable dataset
+        const dataset = reset ? data : updatedData;
+        hill.replaceAndUpdate(dataset);
+
+        // Change button text for toggle
+        e.target.innerText = reset ? 'Replace Data' : 'Reset Data';
       });
     </script>
   </body>
