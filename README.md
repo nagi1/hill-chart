@@ -144,6 +144,8 @@ const config = {
   width: 900, // chart width
   height: 300, // chart height
   preview: false, // if true points wont be draggable
+  darkMode: false, // Whether the dark color scheme is to be used
+  backgroundColor: 'transparent', // Color to be used as bg, Use true for default color
   footerText: {
     // control footer text
     show: true,

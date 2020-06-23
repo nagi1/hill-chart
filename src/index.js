@@ -23,6 +23,8 @@ const defaults = {
   width: 900,
   height: 300,
   preview: false,
+  darkMode: false,
+  backgroundColor: 'transparent',
   footerText: {
     show: true,
     fontSize: 0.75,
@@ -51,9 +53,18 @@ export default class HillChart extends EventEmitter {
     this.chartHeight = height - margin.top - margin.bottom;
 
     // Render the svg and center chart according to margins
+    this.colorScheme = this.darkMode ? 'hill-chart-dark' : 'hill-chart-light';
+    const defaultBg = this.darkMode ? '#2f3437' : '#ffffff';
+    const useDefaultBg = this.backgroundColor === true;
+    const useTransparentBg = this.backgroundColor === false;
+    const suppliedBgColor = useDefaultBg ? defaultBg : this.backgroundColor;
+    this.backgroundColor = useTransparentBg ? 'transparent' : suppliedBgColor;
+
     this.svg = select(target)
+      .attr('class', this.colorScheme)
       .attr('width', width)
       .attr('height', height)
+      .attr('style', `stroke-width: 0; background-color: ${this.backgroundColor};`)
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 

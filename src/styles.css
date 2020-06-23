@@ -1,37 +1,72 @@
 .chart-hill-main-curve {
   fill: none;
   opacity: 0.67;
-  stroke: #6d6d6d;
   stroke-width: 1.5px;
 }
 
+.hill-chart-light .chart-hill-main-curve {
+  stroke: #6d6d6d;
+}
+
+.hill-chart-dark .chart-hill-main-curve {
+  stroke: #7d7d7d;
+}
+
 .hill-chart-circle {
-  stroke: #fff;
   stroke-width: 2;
+}
+
+.hill-chart-light .hill-chart-circle {
+  stroke: #fff;
+}
+
+.hill-chart-dark .hill-chart-circle {
+  stroke: #2b2b2b;
 }
 
 .hill-chart-middle-line {
   fill: none;
-  stroke: #cbd5e0;
   stroke-width: 2.09px;
   shape-rendering: crispEdges;
   stroke-dasharray: 5, 5;
 }
 
+.hill-chart-light .hill-chart-middle-line {
+  stroke: #cbd5e0;
+}
+
+.hill-chart-dark .hill-chart-middle-line {
+  stroke: #7c7c7c;
+}
+
 .hill-chart-bottom-line path {
-  stroke: #bbb6b6;
   stroke-width: 1px;
+}
+
+.hill-chart-light .hill-chart-bottom-line path {
+  stroke: #bbb6b6;
+}
+
+.hill-chart-dark .hill-chart-bottom-line path {
+  stroke: #7c7c7c;
 }
 
 .hill-chart-text {
   font-family: inherit;
   text-transform: uppercase;
-  fill: #646464;
   letter-spacing: 0.05rem;
   text-anchor: middle;
   shape-rendering: crispEdges;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.hill-chart-light .hill-chart-text {
+  fill: #646464;
+}
+
+.hill-chart-dark .hill-chart-text {
+  fill: #a5a5a5;
 }
 
 .hill-chart-group {
@@ -45,4 +80,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1rem;
+}
+
+.hill-chart-light .hill-chart-group > text {
+  fill: #000;
+}
+
+.hill-chart-dark .hill-chart-group > text {
+  fill: #b5b5b5;
 }
