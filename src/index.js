@@ -212,8 +212,34 @@ export default class HillChart extends EventEmitter {
           );
 
         that.emit('move', invertedX, invertedY);
-        that.emit('moved', { ...data, ...newInvertedCoordinates });
       }
+    });
+
+    dragPoint.on('end', (data) => {
+      if (that.preview) {
+        return;
+      }
+
+      let { x } = event;
+
+      // Check point movement, preventing it from wondering outside the main curve
+      if (x < 0) {
+        x = 0;
+      } else if (x > that.chartWidth) {
+        x = that.chartWidth;
+      }
+
+      // Convert current point coordinates back to the original
+      const invertedX = that.xScale.invert(x);
+      data.y = that.yScale(hillFn(invertedX));
+      const invertedY = hillFnInverse(that.yScale.invert(data.y));
+
+      const newInvertedCoordinates = {
+        x: invertedX,
+        y: invertedY,
+      };
+
+      that.emit('moved', { ...data, ...newInvertedCoordinates });
     });
 
     let group;
