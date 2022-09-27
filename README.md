@@ -14,6 +14,7 @@
 - [x] Tested ([kinda](#d3-testing-problems) 😅)
 - [x] Easily wrapped and integrated into other UI frameworks
 - [x] Dark mode by [@jeffandersen](https://github.com/jeffandersen)
+- [x] TypeScript support [@natterstefan](https://github.com/natterstefan)
 
 ## Getting started
 
@@ -296,3 +297,27 @@ Every Step is well documented
 
 Hill chart is an original idea by Basecamp.
 While this project aims to replicate the behavior and/or the design of the mentioned idea, it isn't by any means an attempt to reclaim the credit of the idea nor the design.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/nagi1"><img src="https://avatars.githubusercontent.com/u/16584220?v=4?s=100" width="100px;" alt="Ahmed Nagi"/><br /><sub><b>Ahmed Nagi</b></sub></a><br /><a href="https://github.com/nagi1/hill-chart/commits?author=nagi1" title="Code">💻</a> <a href="#ideas-nagi1" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center"><a href="https://github.com/jeffandersen"><img src="https://avatars.githubusercontent.com/u/474438?v=4?s=100" width="100px;" alt="Jeff Andersen"/><br /><sub><b>Jeff Andersen</b></sub></a><br /><a href="https://github.com/nagi1/hill-chart/commits?author=jeffandersen" title="Code">💻</a></td>
+      <td align="center"><a href="https://natterstefan.me/"><img src="https://avatars.githubusercontent.com/u/1043668?v=4?s=100" width="100px;" alt="Stefan Natter"/><br /><sub><b>Stefan Natter</b></sub></a><br /><a href="https://github.com/nagi1/hill-chart/commits?author=natterstefan" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

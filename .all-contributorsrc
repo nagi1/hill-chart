@@ -1,0 +1,43 @@
+{
+  "projectName": "hill-chart",
+  "projectOwner": "nagi1",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "eslint",
+  "contributors": [
+    {
+      "login": "nagi1",
+      "name": "Ahmed Nagi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16584220?v=4",
+      "profile": "https://github.com/nagi1",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "jeffandersen",
+      "name": "Jeff Andersen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/474438?v=4",
+      "profile": "https://github.com/jeffandersen",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "natterstefan",
+      "name": "Stefan Natter",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1043668?v=4",
+      "profile": "https://natterstefan.me/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
