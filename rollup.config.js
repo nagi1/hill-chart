@@ -11,28 +11,50 @@ import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import typescript from '@rollup/plugin-typescript';
 
-const production = !process.env.ROLLUP_WATCH;
-const dist = 'dist';
-const bundle = 'hill-chart';
+import pkg from './package.json';
 
-const commonOptions = {
-  plugins: [
+const isProduction = !process.env.ROLLUP_WATCH;
+const input = 'src/index.ts';
+const distDir = 'dist';
+const bundle = 'hill-chart';
+const name = 'HillChart';
+
+/**
+ * inspired by
+ * @see https://github.com/rollup/plugins/issues/247#issuecomment-663230846
+ */
+const getOutput = (format = 'esm') => {
+  return {
+    name: format === 'umd' ? name : undefined,
+    file: `${distDir}/${bundle}.${format}.js`,
+    format,
+    exports: 'default',
+  };
+};
+
+const getPlugins = (format = 'esm') => {
+  const typeScriptOptions =
+    format === 'esm'
+      ? {
+          declaration: !!isProduction,
+          declarationDir: path.dirname(pkg.module),
+          include: ['src/**/*'],
+          exclude: ['node_modules', '__test__'],
+        }
+      : undefined;
+
+  return [
     cjs({
       include: 'node_modules/**',
     }),
-    typescript({
-      declaration: !!production,
-      declarationDir: 'dist',
-      include: ['src/**/*'],
-      exclude: ['node_modules', '__test__'],
-    }),
+    typescript(typeScriptOptions),
     resolve(),
     babel({
       babelHelpers: 'bundled',
       exclude: 'node_modules/**',
     }),
 
-    production && terser(),
+    isProduction && terser(),
     postcss({
       extract: path.resolve('dist/styles.css'),
       plugins: [autoprefixer(), cssnano()],
@@ -41,70 +63,68 @@ const commonOptions = {
     visualizer({
       gzipSize: true,
     }),
-  ],
+  ];
 };
-
-const full = {
-  input: 'src/index.ts',
-  output: [
-    {
-      file: `${dist}/${bundle}.cjs.js`,
-      format: 'cjs',
-      exports: 'default',
-    },
-    {
-      file: `${dist}/${bundle}.esm.js`,
-      format: 'esm',
-      exports: 'default',
-    },
-    {
-      name: 'HillChart',
-      file: `${dist}/${bundle}.umd.js`,
-      format: 'umd',
-      exports: 'default',
-    },
-  ],
-
-  ...commonOptions,
-};
-
-const withoutD3 = {
-  input: 'src/index.ts',
-  external: [
-    'd3-selection',
-    'd3-scale',
-    'd3-axis',
-    'd3-shape',
-    'd3-drag',
-    'd3-array',
-  ],
-  output: [
-    {
-      name: 'HillChart',
-      file: `${dist}/${bundle}.nod3.umd.js`,
-      format: 'umd',
-      globals: {
-        'd3-selection': 'd3',
-        'd3-scale': 'd3',
-        'd3-axis': 'd3',
-        'd3-shape': 'd3',
-        'd3-drag': 'd3',
-        'd3-array': 'd3',
-      },
-    },
-  ],
-
-  ...commonOptions,
-};
-
-const d3 = {
-  input: 'src/d3.ts',
-  output: {
-    file: `${dist}/d3.min.js`,
-    name: 'd3',
-    format: 'umd',
+export default [
+  // cjs configuration
+  {
+    input,
+    output: getOutput('cjs'),
+    plugins: getPlugins('cjs'),
   },
-  ...commonOptions,
-};
 
-export default [{ ...d3 }, { ...full }, { ...withoutD3 }];
+  // esm configuration
+  {
+    input,
+    output: getOutput('esm'),
+    plugins: getPlugins('esm'),
+  },
+
+  // umd configuration
+  {
+    input,
+    name,
+    output: getOutput('umd'),
+    plugins: getPlugins('umd'),
+  },
+
+  // withoutD3 configuration
+  {
+    input,
+    external: [
+      'd3-selection',
+      'd3-scale',
+      'd3-axis',
+      'd3-shape',
+      'd3-drag',
+      'd3-array',
+    ],
+    output: [
+      {
+        name,
+        file: `${distDir}/${bundle}.nod3.umd.js`,
+        format: 'umd',
+        globals: {
+          'd3-selection': 'd3',
+          'd3-scale': 'd3',
+          'd3-axis': 'd3',
+          'd3-shape': 'd3',
+          'd3-drag': 'd3',
+          'd3-array': 'd3',
+        },
+      },
+    ],
+    plugins: getPlugins('umd'),
+  },
+
+  // d3 configuration
+  {
+    input: 'src/d3.ts',
+    output: {
+      file: `${distDir}/d3.min.js`,
+      name: 'd3',
+      format: 'umd',
+    },
+    plugins: getPlugins('umd'),
+  },
+];
