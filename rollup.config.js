@@ -14,8 +14,8 @@ import typescript from '@rollup/plugin-typescript';
 import pkg from './package.json';
 
 const isProduction = !process.env.ROLLUP_WATCH;
-const input = 'src/index.ts';
-const distDir = 'dist';
+const input = path.resolve('src/index.ts');
+const distDir = path.resolve('dist');
 const bundle = 'hill-chart';
 const name = 'HillChart';
 
