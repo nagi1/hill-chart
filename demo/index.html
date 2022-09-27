@@ -252,7 +252,7 @@
               </div>
 
               <div class="mt-10 flex justify-center space-y-5" id="canvas">
-                <svg id="hill-chart" />
+                <svg id="hill-chart"></svg>
               </div>
 
               <div class="flex" style="margin-top: 1em">
@@ -286,133 +286,6 @@
 
     <script src="./dist/d3.min.js"></script>
     <script src="./dist/hill-chart.nod3.umd.js"></script>
-    <script type="text/javascript">
-      const data = [
-        {
-          color: 'red',
-          description: 'Late af task',
-          size: 10,
-          x: 12.069770990416055,
-          y: 13.701965652222704, // optionally, provide a specific Y value
-          link: '/fired.html',
-        },
-
-        {
-          color: 'yellow',
-          description: 'Gettin there',
-          size: 10,
-          x: 55.11627906976744,
-        },
-        {
-          color: 'green',
-          description: 'Hell yeah!',
-          x: 93.48837209302326,
-          size: 10,
-        },
-      ];
-
-      const updatedData = [
-        {
-          color: 'red',
-          description: 'Late af task',
-          size: 10,
-          x: 30,
-          link: '/fired.html',
-        },
-        {
-          color: 'yellow',
-          description: 'Gettin there',
-          size: 10,
-          x: 60,
-        },
-        {
-          color: 'green',
-          description: 'Hell yeah!',
-          x: 100,
-          size: 10,
-        },
-        {
-          color: 'blue',
-          description: 'Forgot about Dre',
-          size: 10,
-          x: 50,
-        },
-      ];
-
-      const options = {
-        target: '#hill-chart',
-        width: 700,
-        height: 270,
-        preview: false,
-        footerText: {
-          show: true,
-          fontSize: 0.75, // rem
-        },
-      };
-
-      function createAndRenderHill(data, options) {
-        const hill = new HillChart(data, options);
-
-        hill.on('home', (data) => {
-          console.log(`Started Over:`);
-          console.log(data);
-        });
-
-        hill.on('end', (data) => {
-          console.log(`Finished Over:`);
-          console.log(data);
-        });
-
-        hill.on('move', (x, y) => {
-          console.log(`x: ${x}`);
-          console.log(`y: ${y}`);
-        });
-
-        hill.on('moved', (data) => {
-          console.log(`Point moved`);
-          console.log(data);
-        });
-
-        return hill;
-      }
-
-      let hill = createAndRenderHill(data, options);
-      hill.render();
-
-      // Handle enable dark mode
-      document.getElementById('darkMode').addEventListener('click', (e) => {
-        e.preventDefault();
-
-        // Reset the svg styling
-        hill.svg.className = '';
-        hill.svg.selectAll('*').remove();
-
-        // Re-render the hill chart in dark mode
-        const darkMode = e.target.innerText === 'Dark Mode' ? true : false;
-        hill = createAndRenderHill(
-          data,
-          Object.assign({}, options, {
-            darkMode,
-            backgroundColor: darkMode,
-          })
-        );
-        hill.render();
-
-        // Change button text for toggle
-        e.target.innerText = darkMode ? 'Light Mode' : 'Dark Mode';
-      });
-
-      document.getElementById('replaceData').addEventListener('click', (e) => {
-        e.preventDefault();
-        const reset = e.target.innerText.indexOf('Reset') > -1;
-
-        // Variable dataset
-        const dataset = reset ? data : updatedData;
-        hill.replaceAndUpdate(dataset);
-
-        // Change button text for toggle
-        e.target.innerText = reset ? 'Replace Data' : 'Reset Data';
-      });
-    </script>
+    <script src="./demo.js"></script>
   </body>
 </html>

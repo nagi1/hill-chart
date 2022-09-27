@@ -160,7 +160,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
   }
 
   // Replace the data points, and re-render the group
-  replaceAndUpdate(data: Data) {
+  replaceAndUpdate(data: Partial<DataPointInternal>[]) {
     // Update and normalize the data
     this.replaceData(data);
 
