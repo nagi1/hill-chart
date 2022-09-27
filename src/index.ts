@@ -67,7 +67,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
   colorScheme: IHillChartClass['colorScheme'] = 'hill-chart-light';
 
-  svg: IHillChartClass['svg'];
+  svg: IHillChartClass['svg'] = select<SVGGElement, DataPoint>('svg');
 
   xScale: IHillChartClass['xScale'] = scaleLinear();
 
@@ -149,7 +149,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
     this.replaceData(data);
 
     // Remove the existing points
-    this.svg?.selectAll('.hill-chart-group').remove();
+    this.svg.selectAll('.hill-chart-group').remove();
 
     // Render group of points
     this.renderGroup();
@@ -157,7 +157,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
   undraggablePoint() {
     return this.svg
-      ?.selectAll('.hill-chart-group')
+      .selectAll('.hill-chart-group')
       .data(this.data)
       .enter()
       .append('a')
@@ -295,7 +295,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
       // Create group consisted of a circle and a description text, where
       // the data attributes determine the position of them on the curve
       group = this.svg
-        ?.selectAll('.hill-chart-group')
+        .selectAll('.hill-chart-group')
         .data(this.data)
         .enter()
         .append('g')
@@ -309,7 +309,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
     }
 
     group
-      ?.append('circle')
+      .append('circle')
       .attr('class', 'hill-chart-circle')
       .attr('fill', (data) => data.color)
       .attr('cx', 0)
@@ -317,7 +317,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
       .attr('r', (data) => data.size || DEFAULT_SIZE);
 
     group
-      ?.append('text')
+      .append('text')
       .text((data) => data.description)
       .attr('x', (data) =>
         calculateTextPositionForX(
@@ -348,7 +348,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
     // Render the actual main line curve
     this.svg
-      ?.append('path')
+      .append('path')
       .attr('class', 'chart-hill-main-curve')
       .datum(this.mainLineCurvePoints)
       .attr('d', this.line);
@@ -360,7 +360,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
     // Render the acutal svg
     this.svg
-      ?.append('g')
+      .append('g')
       .attr('class', 'hill-chart-bottom-line')
       .attr('transform', `translate(0, ${this.chartHeight + marginTop})`)
       .call(this.bottomLine);
@@ -368,7 +368,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
   renderMiddleLine() {
     this.svg
-      ?.append('line')
+      .append('line')
       .attr('class', 'hill-chart-middle-line')
       .attr('y1', this.yScale(0))
       .attr('y2', this.yScale(100))
@@ -378,7 +378,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
   renderFooterText() {
     this.svg
-      ?.append('text')
+      .append('text')
       .attr('class', 'hill-chart-text')
       .text('Figuring things out')
       .style('font-size', `${this.footerText.fontSize}rem`)
@@ -386,7 +386,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
       .attr('y', this.chartHeight + 30);
 
     this.svg
-      ?.append('text')
+      .append('text')
       .attr('class', 'hill-chart-text')
       .text('Making it happen')
       .style('font-size', `${this.footerText.fontSize}rem`)

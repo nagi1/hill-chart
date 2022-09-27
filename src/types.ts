@@ -53,7 +53,7 @@ export interface IHillChartClass extends EventEmitter, Config {
   chartWidth: number;
   chartHeight: number;
   colorScheme: 'hill-chart-dark' | 'hill-chart-light';
-  svg: Selection<SVGGElement, DataPoint, HTMLElement, any> | undefined;
+  svg: Selection<SVGGElement, DataPoint, HTMLElement, any>;
   xScale: ScaleLinear<number, number, never>;
   yScale: ScaleLinear<number, number, never>;
   bottomLine: Axis<NumberValue>;
