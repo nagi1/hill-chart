@@ -37,6 +37,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "andersfibiger",
+      "name": "andersfibiger",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23510285?v=4",
+      "profile": "https://github.com/andersfibiger",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "thecashewtrader",
+      "name": "The Cashew Trader",
+      "avatar_url": "https://avatars.githubusercontent.com/u/81344401?v=4",
+      "profile": "https://github.com/thecashewtrader",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
