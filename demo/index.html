@@ -211,9 +211,7 @@
                 <!-- title -->
 
                 <div class="flex items-center space-x-2 md:hidden">
-                  <h1 class="text-3xl font-bold">
-                    To-dos
-                  </h1>
+                  <h1 class="text-3xl font-bold">To-dos</h1>
 
                   <span class="text-sm">1/100</span>
                 </div>
@@ -233,9 +231,7 @@
                   </button>
                   <!-- title -->
                   <div class="flex items-center space-x-2 hidden md:flex">
-                    <h1 class="text-3xl font-bold">
-                      To-dos
-                    </h1>
+                    <h1 class="text-3xl font-bold">To-dos</h1>
 
                     <span class="text-sm">1/100</span>
                   </div>
@@ -262,10 +258,10 @@
                 <svg id="hill-chart" />
               </div>
 
-              <div class="flex" style="margin-top: 1em;">
+              <div class="flex" style="margin-top: 1em">
                 <button
                   class="flex items-center rounded-full py-2 px-3 bg-blue-500 text-white text-sm space-x-1"
-                  style="margin-right: 1em;"
+                  style="margin-right: 1em"
                   id="replaceData"
                   @click.prevent="showCreateList = true"
                 >
@@ -355,10 +351,10 @@
           show: true,
           fontSize: 0.75, // rem
         },
-      }
+      };
 
       function createAndRenderHill(data, options) {
-        const hill = new HillChart(data, options)
+        const hill = new HillChart(data, options);
 
         hill.on('home', (data) => {
           console.log(`Started Over:`);
@@ -383,7 +379,7 @@
         return hill;
       }
 
-      let hill = createAndRenderHill(data, options)
+      let hill = createAndRenderHill(data, options);
       hill.render();
 
       // Handle enable dark mode
@@ -395,11 +391,14 @@
         hill.svg.selectAll('*').remove();
 
         // Re-render the hill chart in dark mode
-        const darkMode = e.target.innerText === 'Dark Mode'? true : false;
-        hill = createAndRenderHill(data, Object.assign({}, options, {
-          darkMode,
-          backgroundColor: darkMode,
-        }));
+        const darkMode = e.target.innerText === 'Dark Mode' ? true : false;
+        hill = createAndRenderHill(
+          data,
+          Object.assign({}, options, {
+            darkMode,
+            backgroundColor: darkMode,
+          })
+        );
         hill.render();
 
         // Change button text for toggle
