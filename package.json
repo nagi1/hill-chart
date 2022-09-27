@@ -33,7 +33,7 @@
     "*.+(json|css|md|yaml|yml)": [
       "yarn format"
     ],
-    "*.js": [
+    "*.(js,ts,tsx)": [
       "yarn lint:fix",
       "yarn format",
       "yarn test:staged"
