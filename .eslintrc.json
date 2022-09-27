@@ -23,6 +23,7 @@
     "jest/prefer-expect-assertions": "off",
     "jest/require-top-level-describe": "off",
     "jest/no-hooks": "off",
-    "jest/no-conditional-expect": "off"
+    "jest/no-conditional-expect": "off",
+    "@typescript-eslint/no-this-alias": ["error", { "allowedNames": ["self"] }]
   }
 }
