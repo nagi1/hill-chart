@@ -11,7 +11,6 @@ export type Config = {
   preview?: boolean;
   darkMode?: boolean;
   /**
-   * TODO: remove support for undefined
    * @default 'transparent'
    */
   backgroundColor?: string | boolean;
