@@ -221,7 +221,7 @@ data: [
 
 **Name:** End
 
-**Trigger:** `.on('en', (data)=>{})`
+**Trigger:** `.on('end', (data)=>{})`
 
 **triggered:** if the point hit last point on X axis
 
