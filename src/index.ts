@@ -19,34 +19,8 @@ import {
   uId,
 } from './helpers';
 import './styles.css';
-import {
-  Config,
-  ConfigInternal,
-  Data,
-  DataPointInternal,
-  IHillChartClass,
-} from './types';
-
-const DEFAULT_SIZE = 10;
-
-const defaults: ConfigInternal = {
-  target: 'svg',
-  width: 900,
-  height: 300,
-  preview: false,
-  darkMode: false,
-  backgroundColor: 'transparent',
-  footerText: {
-    show: true,
-    fontSize: 0.75,
-  },
-  margin: {
-    top: 20,
-    right: 20,
-    bottom: 40,
-    left: 20,
-  },
-};
+import { Config, Data, DataPointInternal, IHillChartClass } from './types';
+import { DEFAULT_CONFIG, DEFAULT_SIZE } from './defaults';
 
 export default class HillChart extends EventEmitter implements IHillChartClass {
   /**
@@ -55,21 +29,21 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
   data: IHillChartClass['data'] = [];
 
-  target = defaults.target;
+  target = DEFAULT_CONFIG.target;
 
-  width = defaults.width;
+  width = DEFAULT_CONFIG.width;
 
-  height = defaults.height;
+  height = DEFAULT_CONFIG.height;
 
-  preview = defaults.preview;
+  preview = DEFAULT_CONFIG.preview;
 
-  darkMode = defaults.darkMode;
+  darkMode = DEFAULT_CONFIG.darkMode;
 
-  backgroundColor = defaults.backgroundColor;
+  backgroundColor = DEFAULT_CONFIG.backgroundColor;
 
-  footerText = defaults.footerText;
+  footerText = DEFAULT_CONFIG.footerText;
 
-  margin = defaults.margin;
+  margin = DEFAULT_CONFIG.margin;
 
   /**
    * ### Private Variables ###
@@ -95,9 +69,9 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
     .x(0)
     .y(0);
 
-  constructor(data: Data, config: Config) {
+  constructor(data: Data, config?: Config) {
     super();
-    Object.assign(this, defaults, { data }, config);
+    Object.assign(this, DEFAULT_CONFIG, { data }, config);
     this.init();
   }
 

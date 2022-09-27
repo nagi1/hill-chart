@@ -6,29 +6,62 @@ import EventEmitter from 'event-emitter-es6';
 import type { DeepRequired } from 'ts-essentials';
 
 export type Config = {
-  target?: 'svg';
+  /**
+   * @default 'svg'
+   */
+  target?: string;
+  /**
+   * @default 900
+   */
   width?: number;
+  /**
+   * @default 300
+   */
   height?: number;
+  /**
+   * @default false
+   */
   preview?: boolean;
+  /**
+   * @default false
+   */
   darkMode?: boolean;
   /**
    * @default 'transparent'
    */
   backgroundColor?: string | boolean;
   footerText?: {
+    /**
+     * @default true
+     */
     show?: boolean;
+    /**
+     * @default 0.75
+     */
     fontSize?: number;
   };
   margin?: {
+    /**
+     * @default 20
+     */
     top?: number;
+    /**
+     * @default 20
+     */
     right?: number;
+    /**
+     * @default 40
+     */
     bottom?: number;
+    /**
+     * @default 20
+     */
     left?: number;
   };
 };
 
 export type DataPoint = {
-  id: string;
+  id?: string;
   color: string;
   description: string;
   link?: string;
