@@ -19,11 +19,17 @@ import {
   uId,
 } from './helpers';
 import './styles.css';
-import { Config, Data, DataPointInternal, IHillChartClass } from './types';
+import {
+  Config,
+  ConfigInternal,
+  Data,
+  DataPointInternal,
+  IHillChartClass,
+} from './types';
 
 const DEFAULT_SIZE = 10;
 
-const defaults: Config = {
+const defaults: ConfigInternal = {
   target: 'svg',
   width: 900,
   height: 300,

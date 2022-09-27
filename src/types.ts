@@ -3,9 +3,10 @@ import { NumberValue, ScaleLinear } from 'd3-scale';
 import { Selection } from 'd3-selection';
 import { Line } from 'd3-shape';
 import EventEmitter from 'event-emitter-es6';
+import type { DeepRequired } from 'ts-essentials';
 
 export type Config = {
-  target?: 'svg' | SVGSVGElement;
+  target?: 'svg';
   width?: number;
   height?: number;
   preview?: boolean;
@@ -47,10 +48,12 @@ export type DataPoint = {
 
 export type Data = DataPoint[];
 
-export type DataPointInternal = Required<DataPoint>;
-export type DataInternal = Required<DataPointInternal>[];
+export type ConfigInternal = DeepRequired<Config>;
 
-export interface IHillChartClass extends EventEmitter, Config {
+export type DataPointInternal = DeepRequired<DataPoint>;
+export type DataInternal = DataPointInternal[];
+
+export interface IHillChartClass extends EventEmitter, ConfigInternal {
   data: DataInternal;
   chartWidth: number;
   chartHeight: number;

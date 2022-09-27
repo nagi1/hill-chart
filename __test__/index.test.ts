@@ -14,6 +14,7 @@ let replacementData: {
 beforeEach(() => {
   svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   config = {
+    // @ts-expect-error As we do not mock d3-selections `select` we have to provide an actual DOM element here
     target: svg,
     width: 900,
     height: 270,
