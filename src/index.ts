@@ -1,7 +1,15 @@
 import EventEmitter from 'event-emitter-es6';
-import type { Selection } from 'd3-selection';
+import { Selection } from 'd3-selection';
 
-import { select, scaleLinear, axisBottom, line, drag, range } from './d3';
+import {
+  event,
+  select,
+  scaleLinear,
+  axisBottom,
+  line,
+  drag,
+  range,
+} from './d3';
 import {
   hillFn,
   hillFnInverse,
@@ -191,7 +199,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
     // Handle dragging
     const dragPoint = drag<SVGGElement, DataPoint>()
       .on('drag', function (data) {
-        let { x } = data;
+        let { x } = event;
 
         // Check point movement, preventing it from wondering outside the main curve
         if (!x || x < 0) {
@@ -255,7 +263,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
           return;
         }
 
-        let { x } = data;
+        let { x } = event;
 
         // Check point movement, preventing it from wondering outside the main curve
         if (!x || x < 0) {
