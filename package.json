@@ -22,7 +22,8 @@
     "lint:fix": "eslint \"./**/*.{js,ts,tsx}\" --fix",
     "format": "prettier --write \"**/*.+(js|json|yml|yaml|css|md)\"",
     "deploy": "gh-pages -d demo/",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "watch": "rollup -c -w"
   },
   "husky": {
     "hooks": {
