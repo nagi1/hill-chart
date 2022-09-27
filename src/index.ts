@@ -1,15 +1,7 @@
-import { Selection } from 'd3-selection';
 import EventEmitter from 'event-emitter-es6';
+import type { Selection } from 'd3-selection';
 
-import {
-  select,
-  event,
-  scaleLinear,
-  axisBottom,
-  line,
-  drag,
-  range,
-} from './d3';
+import { select, scaleLinear, axisBottom, line, drag, range } from './d3';
 import {
   hillFn,
   hillFnInverse,
@@ -22,7 +14,6 @@ import './styles.css';
 import { Config, Data, DataPoint, IHillChartClass } from './types';
 
 const DEFAULT_SIZE = 10;
-const DEFAULT_Y = 0;
 
 const defaults: Config = {
   target: 'svg',
@@ -44,23 +35,23 @@ const defaults: Config = {
 };
 
 export default class HillChart extends EventEmitter implements IHillChartClass {
-  data;
+  data: IHillChartClass['data'] = [];
 
-  target;
+  target = defaults.target;
 
-  width;
+  width = defaults.width;
 
-  height;
+  height = defaults.height;
 
-  preview;
+  preview = defaults.preview;
 
-  darkMode;
+  darkMode = defaults.darkMode;
 
-  backgroundColor;
+  backgroundColor = defaults.backgroundColor;
 
-  footerText;
+  footerText = defaults.footerText;
 
-  margin;
+  margin = defaults.margin;
 
   chartWidth = 0;
 
@@ -82,22 +73,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
   constructor(data: Data, config: Config) {
     super();
-
-    this.data = data;
-
-    this.target = config.target || defaults.target;
-    this.width = config.width || defaults.width;
-    this.height = config.height || defaults.height;
-    this.preview = config.preview || defaults.preview;
-    this.darkMode = config.darkMode || defaults.darkMode;
-    // TODO: remove support for undefined
-    this.backgroundColor =
-      'backgroundColor' in config
-        ? config.backgroundColor
-        : defaults.backgroundColor;
-    this.footerText = config.footerText || defaults.footerText;
-    this.margin = config.margin || defaults.margin;
-
+    Object.assign(this, defaults, { data }, config);
     this.init();
   }
 
@@ -185,7 +161,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
       .style('cursor', 'pointer')
       .attr('transform', (data) => {
         data.x = this.xScale(data.x);
-        data.y = this.yScale(data.y || DEFAULT_Y);
+        data.y = this.yScale(data.y);
         return `translate(${data.x}, ${data.y})`;
       });
   }
@@ -211,91 +187,92 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
   renderGroup() {
     // Handle dragging
-    const dragPoint = drag<SVGGElement, DataPoint>().on('drag', (data) => {
-      let { x } = event;
+    const dragPoint = drag<SVGGElement, DataPoint>()
+      .on('drag', (data) => {
+        let { x } = data;
 
-      // Check point movement, preventing it from wondering outside the main curve
-      if (x < 0) {
-        x = 0;
-        this.emit('home', {
-          ...data,
-          y: hillFnInverse(this.yScale.invert(data.y || DEFAULT_Y)),
+        // Check point movement, preventing it from wondering outside the main curve
+        if (!x || x < 0) {
+          x = 0;
+          this.emit('home', {
+            ...data,
+            y: hillFnInverse(this.yScale.invert(data.y)),
+          });
+        } else if (x > this.chartWidth) {
+          x = this.chartWidth;
+          this.emit('end', {
+            ...data,
+            x: this.xScale.invert(this.chartWidth),
+            y: hillFnInverse(this.yScale.invert(data.y)),
+          });
+        }
+
+        // Convert current point coordinates back to the original
+        // between 0 and 100 to set it in the data attribute
+        const invertedX = this.xScale.invert(x);
+
+        data.x = x;
+
+        data.y = this.yScale(hillFn(invertedX));
+
+        const invertedY = hillFnInverse(this.yScale.invert(data.y));
+
+        const newInvertedCoordinates = {
+          x: invertedX,
+          y: invertedY,
+        };
+
+        // click event
+        select<SVGGElement, DataPoint>(this.target).on('click', () => {
+          this.emit('pointClick', { ...data, ...newInvertedCoordinates });
         });
-      } else if (x > this.chartWidth) {
-        x = this.chartWidth;
-        this.emit('end', {
-          ...data,
-          x: this.xScale.invert(this.chartWidth),
-          y: hillFnInverse(this.yScale.invert(data.y || DEFAULT_Y)),
-        });
-      }
 
-      // Convert current point coordinates back to the original
-      // between 0 and 100 to set it in the data attribute
-      const invertedX = this.xScale.invert(x);
+        if (!this.preview) {
+          const selectedPoint = select<SVGGElement, DataPoint>(
+            this.target
+          ).attr('transform', `translate(${data.x}, ${data.y})`);
+          selectedPoint
+            .select('text')
+            .style('text-anchor', () => {
+              if (textOutRange(invertedX)) {
+                return 'end';
+              }
+              return 'start';
+            })
+            .attr('x', (point) =>
+              // TODO: why is point undefined?
+              calculateTextPositionForX(point?.size || DEFAULT_SIZE, invertedX)
+            );
 
-      data.x = x;
+          this.emit('move', invertedX, invertedY);
+        }
+      })
+      .on('end', (data) => {
+        if (this.preview) {
+          return;
+        }
 
-      data.y = this.yScale(hillFn(invertedX));
+        let { x } = data;
 
-      const invertedY = hillFnInverse(this.yScale.invert(data.y));
+        // Check point movement, preventing it from wondering outside the main curve
+        if (!x || x < 0) {
+          x = 0;
+        } else if (x > this.chartWidth) {
+          x = this.chartWidth;
+        }
 
-      const newInvertedCoordinates = {
-        x: invertedX,
-        y: invertedY,
-      };
+        // Convert current point coordinates back to the original
+        const invertedX = this.xScale.invert(x);
+        data.y = this.yScale(hillFn(invertedX));
+        const invertedY = hillFnInverse(this.yScale.invert(data.y));
 
-      // click event
-      select(this.target).on('click', () => {
-        this.emit('pointClick', { ...data, ...newInvertedCoordinates });
+        const newInvertedCoordinates = {
+          x: invertedX,
+          y: invertedY,
+        };
+
+        this.emit('moved', { ...data, ...newInvertedCoordinates });
       });
-
-      if (!this.preview) {
-        const selectedPoint = select<SVGGElement, { size: number }>(
-          this.target
-        ).attr('transform', `translate(${data.x}, ${data.y})`);
-        selectedPoint
-          .select('text')
-          .style('text-anchor', () => {
-            if (textOutRange(invertedX)) {
-              return 'end';
-            }
-            return 'start';
-          })
-          .attr('x', (point) =>
-            calculateTextPositionForX(point.size, invertedX)
-          );
-
-        this.emit('move', invertedX, invertedY);
-      }
-    });
-
-    dragPoint.on('end', (data: DataPoint) => {
-      if (this.preview) {
-        return;
-      }
-
-      let { x } = event;
-
-      // Check point movement, preventing it from wondering outside the main curve
-      if (x < 0) {
-        x = 0;
-      } else if (x > this.chartWidth) {
-        x = this.chartWidth;
-      }
-
-      // Convert current point coordinates back to the original
-      const invertedX = this.xScale.invert(x);
-      data.y = this.yScale(hillFn(invertedX));
-      const invertedY = hillFnInverse(this.yScale.invert(data.y));
-
-      const newInvertedCoordinates = {
-        x: invertedX,
-        y: invertedY,
-      };
-
-      this.emit('moved', { ...data, ...newInvertedCoordinates });
-    });
 
     let group:
       | Selection<SVGGElement, DataPoint, SVGGElement, unknown>
@@ -314,7 +291,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
         .attr('class', 'hill-chart-group')
         .attr('transform', (data) => {
           data.x = this.xScale(data.x);
-          data.y = this.yScale(data.y || DEFAULT_Y);
+          data.y = this.yScale(data.y);
           return `translate(${data.x}, ${data.y})`;
         })
         .call(dragPoint);
@@ -356,7 +333,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
     // Map main line curve points to <svg> d attribute
     this.line = line<Pick<DataPoint, 'x' | 'y'>>()
       .x((d) => this.xScale(d.x))
-      .y((d) => this.yScale(d.y || DEFAULT_Y));
+      .y((d) => this.yScale(d.y));
 
     // Render the actual main line curve
     this.svg
