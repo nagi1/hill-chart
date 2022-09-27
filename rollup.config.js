@@ -14,12 +14,18 @@ import typescript from '@rollup/plugin-typescript';
 const production = !process.env.ROLLUP_WATCH;
 const dist = 'dist';
 const bundle = 'hill-chart';
+
 const commonOptions = {
   plugins: [
     cjs({
       include: 'node_modules/**',
     }),
-    typescript(),
+    typescript({
+      declaration: !!production,
+      declarationDir: 'dist',
+      include: ['src/**/*'],
+      exclude: ['node_modules', '__test__'],
+    }),
     resolve(),
     babel({
       babelHelpers: 'bundled',
@@ -44,15 +50,18 @@ const full = {
     {
       file: `${dist}/${bundle}.cjs.js`,
       format: 'cjs',
+      exports: 'default',
     },
     {
       file: `${dist}/${bundle}.esm.js`,
       format: 'esm',
+      exports: 'default',
     },
     {
       name: 'HillChart',
       file: `${dist}/${bundle}.umd.js`,
       format: 'umd',
+      exports: 'default',
     },
   ],
 
