@@ -43,7 +43,7 @@ describe('uId helper', () => {
 
     const data = range(1, 1000).map(() => uId());
 
-    const isArrayUnique = (arr: any[]) =>
+    const isArrayUnique = (arr: string[]) =>
       Array.isArray(arr) && new Set(arr).size === arr.length;
 
     expect(isArrayUnique(data)).toBe(true);
