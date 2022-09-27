@@ -250,6 +250,7 @@ data: [
 - Fork this repo!
 - Install dev dependencies
 - Create new branch describes the new feature/bug.
+- Start the watch mode (e.g. `npm run start` or `yarn start`)
 - Do your thing :)
 
 ### Step 3
