@@ -43,6 +43,10 @@ const defaults: Config = {
 };
 
 export default class HillChart extends EventEmitter implements IHillChartClass {
+  /**
+   * ### Public Variables ###
+   */
+
   data: IHillChartClass['data'] = [];
 
   target = defaults.target;
@@ -60,6 +64,10 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
   footerText = defaults.footerText;
 
   margin = defaults.margin;
+
+  /**
+   * ### Private Variables ###
+   */
 
   chartWidth = 0;
 

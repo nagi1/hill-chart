@@ -5,25 +5,25 @@ import { Line } from 'd3-shape';
 import EventEmitter from 'event-emitter-es6';
 
 export type Config = {
-  target: 'svg';
-  width: number;
-  height: number;
-  preview: boolean;
-  darkMode: boolean;
+  target?: 'svg' | SVGSVGElement;
+  width?: number;
+  height?: number;
+  preview?: boolean;
+  darkMode?: boolean;
   /**
    * TODO: remove support for undefined
    * @default 'transparent'
    */
-  backgroundColor: string | boolean | undefined;
-  footerText: {
-    show: boolean;
-    fontSize: number;
+  backgroundColor?: string | boolean;
+  footerText?: {
+    show?: boolean;
+    fontSize?: number;
   };
-  margin: {
-    top: number;
-    right: number;
-    bottom: number;
-    left: number;
+  margin?: {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
   };
 };
 
