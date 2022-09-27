@@ -1,3 +1,5 @@
+import path from 'path';
+
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
@@ -5,9 +7,9 @@ import cjs from '@rollup/plugin-commonjs';
 import bundleSize from 'rollup-plugin-bundle-size';
 import visualizer from 'rollup-plugin-visualizer';
 import postcss from 'rollup-plugin-postcss';
-import path from 'path';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
+import typescript from '@rollup/plugin-typescript';
 
 const production = !process.env.ROLLUP_WATCH;
 const dist = 'dist';
@@ -17,8 +19,10 @@ const commonOptions = {
     cjs({
       include: 'node_modules/**',
     }),
+    typescript(),
     resolve(),
     babel({
+      babelHelpers: 'bundled',
       exclude: 'node_modules/**',
     }),
 
@@ -35,7 +39,7 @@ const commonOptions = {
 };
 
 const full = {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   output: [
     {
       file: `${dist}/${bundle}.cjs.js`,
@@ -56,7 +60,7 @@ const full = {
 };
 
 const withoutD3 = {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   external: [
     'd3-selection',
     'd3-scale',
@@ -85,7 +89,7 @@ const withoutD3 = {
 };
 
 const d3 = {
-  input: 'src/d3.js',
+  input: 'src/d3.ts',
   output: {
     file: `${dist}/d3.min.js`,
     name: 'd3',

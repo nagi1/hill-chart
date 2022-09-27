@@ -1,4 +1,5 @@
 import { range } from 'd3-array';
+
 import {
   hillFn,
   hillFnInverse,
@@ -10,20 +11,20 @@ import {
 describe('hill chart helper', () => {
   it('computes correct values', () => {
     expect.hasAssertions();
-    expect(hillFn(0)).toEqual(0);
-    expect(hillFn(25)).toEqual(50.000000000000014);
-    expect(hillFn(50)).toEqual(100);
-    expect(hillFn(100)).toEqual(0);
+    expect(hillFn(0)).toBe(0);
+    expect(hillFn(25)).toBe(50.000000000000014);
+    expect(hillFn(50)).toBe(100);
+    expect(hillFn(100)).toBe(0);
   });
 });
 
 describe('hill chart inverse helper', () => {
   it('computes correct values', () => {
     expect.hasAssertions();
-    expect(hillFnInverse(0)).toEqual(0);
-    expect(hillFnInverse(25)).toEqual(16.666666666666664);
-    expect(hillFnInverse(50)).toEqual(25);
-    expect(hillFnInverse(100)).toEqual(50);
+    expect(hillFnInverse(0)).toBe(0);
+    expect(hillFnInverse(25)).toBe(16.666666666666664);
+    expect(hillFnInverse(50)).toBe(25);
+    expect(hillFnInverse(100)).toBe(50);
   });
 });
 
@@ -42,7 +43,7 @@ describe('uId helper', () => {
 
     const data = range(1, 1000).map(() => uId());
 
-    const isArrayUnique = (arr) =>
+    const isArrayUnique = (arr: any[]) =>
       Array.isArray(arr) && new Set(arr).size === arr.length;
 
     expect(isArrayUnique(data)).toBe(true);
@@ -54,7 +55,7 @@ describe('calculate text position on x axis helper', () => {
     expect.hasAssertions();
     let pointSize = 10;
     let x = 50;
-    expect(calculateTextPositionForX(pointSize, x)).toEqual(15);
+    expect(calculateTextPositionForX(pointSize, x)).toBe(15);
 
     pointSize = 15;
     x = 80;

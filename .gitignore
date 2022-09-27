@@ -110,3 +110,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Rollup
+.rollup.cache

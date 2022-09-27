@@ -19,7 +19,6 @@
 - [x] Easily wrapped and integrated into other UI frameworks
 - [x] Dark mode by [@jeffandersen](https://github.com/jeffandersen)
 
-
 ## Getting started
 
 ### Using a package manager

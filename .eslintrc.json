@@ -4,7 +4,7 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["airbnb-base", "plugin:prettier/recommended", "plugin:jest/all"],
+  "extends": ["eslint-config-ns-ts-base"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -13,7 +13,6 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
   "rules": {
     "no-console": "off",
     "comma-style": "warn",
@@ -23,6 +22,7 @@
     "jest/prefer-strict-equal": "off",
     "jest/prefer-expect-assertions": "off",
     "jest/require-top-level-describe": "off",
-    "jest/no-hooks": "off"
+    "jest/no-hooks": "off",
+    "jest/no-conditional-expect": "off"
   }
 }
