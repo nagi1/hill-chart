@@ -36,7 +36,10 @@ export type DataPoint = {
    * @default 10
    */
   size?: number;
-  x: number;
+  /**
+   * @default 0
+   */
+  x?: number;
   /**
    * @default 0
    */
