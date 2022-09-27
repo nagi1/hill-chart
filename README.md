@@ -1,15 +1,11 @@
 # hill-chart
 
-[![](./media/screenshot.png)]()
+![hill-chart preview](./media/screenshot.png)
 
 [Basecamp's Hill Chart](https://basecamp.com/features/hill-charts) implementation using [D3.js](https://d3js.org/), **Try the [demo](https://nagi1.github.io/hill-chart/)**
 
-<br/>
-
 [![Build Status](https://travis-ci.com/nagi1/hill-chart.svg?branch=master)](https://travis-ci.com/nagi1/hill-chart) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nagi1/hill-chart/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nagi1/hill-chart/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/nagi1/hill-chart/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/nagi1/hill-chart/?branch=master) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/25cb5660479340ecb20f44f3f36dd4ae)](https://www.codacy.com/manual/nagi1/hill-chart?utm_source=github.com&utm_medium=referral&utm_content=nagi1/hill-chart&utm_campaign=Badge_Grade) [![Demo](https://img.shields.io/badge/Demo-Available-success)](https://nagi1.github.io/hill-chart/) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#contributing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-<br/>
 
 ## Features
 
@@ -22,6 +18,7 @@
 ## Getting started
 
 ### Using a package manager
+
 Install using yarn
 
 ```bash
@@ -35,6 +32,7 @@ npm i hill-chart
 ```
 
 Import styles
+
 ```css
 @import 'hill-chart/dist/styles.css';
 ```
@@ -50,14 +48,13 @@ Chart styles ~ 1kb
 />
 ```
 
-#### D3.js + Hill Chart combined  bundle ~ 48kb (16kb gzip)
+#### D3.js + Hill Chart combined bundle ~ 48kb (16kb gzip)
 
 ```html
 <script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.umd.js"></script>
 ```
 
 #### D3.js + Hill Chart separate bundles
-
 
 Custom D3.js only minified ~ 41kb (14 gizp)
 
@@ -74,7 +71,6 @@ Hill Chart only minified ~8kb (2kb gzip)
 ## Usage
 
 1. make sure to have empty with an id or class `<svg class="hill-chart" />` on your dom
-
 2. define some points
 
 ```js
@@ -163,6 +159,8 @@ const config = {
 };
 ```
 
+Take a look at the current defaults [here](./src/defaults.ts).
+
 ---
 
 ### Data (Array)
@@ -172,13 +170,13 @@ You can define as may points as you want as long as the it have these options
 ```js
 data: [
   {
-          id: 'd4f4sd', // (optional) any unique id, if not provided it'll be auto generated for you.
-          color: 'red', // color of the point it can be named color 'blue', 'red' or hex #000fff, #cccccc
-          description: 'Late af task', // text next to the point, it's recommended to keep it short
-          size: 10, // (optional) default size of the point
-          x: 12.069770990416055, // x coordinates, (optional, defaults to 0) avoid setting it manually
-          y: 12.069770990416057, // y coordinates, (optional, defaults to 0) avoid setting it manually
-          link: '/fired.html', // (optional, defaults to '#') if in preview mode point becomes clickable
+    id: 'd4f4sd', // (optional) any unique id, if not provided it'll be auto generated for you.
+    color: 'red', // color of the point it can be named color 'blue', 'red' or hex #000fff, #cccccc
+    description: 'Late af task', // text next to the point, it's recommended to keep it short
+    size: 10, // (optional) default size of the point
+    x: 12.069770990416055, // x coordinates, (optional, defaults to 0) avoid setting it manually
+    y: 12.069770990416057, // y coordinates, (optional, defaults to 0) avoid setting it manually
+    link: '/fired.html', // (optional, defaults to '#') if in preview mode point becomes clickable
   }
 ],
 ```
@@ -265,7 +263,6 @@ data: [
 - [ ] Refactor this nasty [`drag()`](https://github.com/nagi1/hill-chart/blob/master/src/index.js#L94) event handler
 - [ ] Add more test. **(depends on `drag()` refactoring)**
 - [ ] Add more events, or improve the existence ones
-- [ ] Add dev server/watcher
 - [ ] Extract to vue components
 - [ ] Feature add snow ball effect, add option to increase the point size gradually near the end.
 - [ ] Improve the demo
