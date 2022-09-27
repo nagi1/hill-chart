@@ -48,15 +48,18 @@ export type DataPoint = {
 
 export type Data = DataPoint[];
 
+export type DataPointInternal = Required<DataPoint>;
+export type DataInternal = Required<DataPointInternal>[];
+
 export interface IHillChartClass extends EventEmitter, Config {
-  data: Data;
+  data: DataInternal;
   chartWidth: number;
   chartHeight: number;
   colorScheme: 'hill-chart-dark' | 'hill-chart-light';
-  svg: Selection<SVGGElement, DataPoint, HTMLElement, any>;
+  svg: Selection<SVGGElement, DataPointInternal, HTMLElement, any>;
   xScale: ScaleLinear<number, number, never>;
   yScale: ScaleLinear<number, number, never>;
   bottomLine: Axis<NumberValue>;
   mainLineCurvePoints: { x: number; y: number }[];
-  line: Line<Pick<DataPoint, 'x' | 'y'>>;
+  line: Line<Pick<DataPointInternal, 'x' | 'y'>>;
 }

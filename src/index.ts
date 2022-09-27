@@ -19,7 +19,7 @@ import {
   uId,
 } from './helpers';
 import './styles.css';
-import { Config, Data, DataPoint, IHillChartClass } from './types';
+import { Config, Data, DataPointInternal, IHillChartClass } from './types';
 
 const DEFAULT_SIZE = 10;
 
@@ -67,7 +67,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
   colorScheme: IHillChartClass['colorScheme'] = 'hill-chart-light';
 
-  svg: IHillChartClass['svg'] = select<SVGGElement, DataPoint>('svg');
+  svg: IHillChartClass['svg'] = select<SVGGElement, DataPointInternal>('svg');
 
   xScale: IHillChartClass['xScale'] = scaleLinear();
 
@@ -77,7 +77,9 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
   mainLineCurvePoints: IHillChartClass['mainLineCurvePoints'] = [];
 
-  line: IHillChartClass['line'] = line<Pick<DataPoint, 'x' | 'y'>>().x(0).y(0);
+  line: IHillChartClass['line'] = line<Pick<DataPointInternal, 'x' | 'y'>>()
+    .x(0)
+    .y(0);
 
   constructor(data: Data, config: Config) {
     super();
@@ -101,7 +103,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
     const suppliedBgColor = useDefaultBg ? defaultBg : this.backgroundColor;
     this.backgroundColor = useTransparentBg ? 'transparent' : suppliedBgColor;
 
-    this.svg = select<SVGGElement, DataPoint>(target)
+    this.svg = select<SVGGElement, DataPointInternal>(target)
       .attr('class', this.colorScheme)
       .attr('width', width)
       .attr('height', height)
@@ -137,7 +139,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
   }
 
   // Replace the data points
-  replaceData(data: Partial<DataPoint>[]) {
+  replaceData(data: Partial<DataPointInternal>[]) {
     // Update and normalize the data
     Object.assign(this, { data });
     this.normalizeData();
@@ -197,7 +199,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
     const self = this;
 
     // Handle dragging
-    const dragPoint = drag<SVGGElement, DataPoint>()
+    const dragPoint = drag<SVGGElement, DataPointInternal>()
       .on('drag', function (data) {
         let { x } = event;
 
@@ -233,15 +235,14 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
         };
 
         // click event
-        select<SVGGElement, DataPoint>(this).on('click', () => {
+        select<SVGGElement, DataPointInternal>(this).on('click', () => {
           self.emit('pointClick', { ...data, ...newInvertedCoordinates });
         });
 
         if (!self.preview) {
-          const selectedPoint = select<SVGGElement, DataPoint>(this).attr(
-            'transform',
-            `translate(${data.x}, ${data.y})`
-          );
+          const selectedPoint = select<SVGGElement, DataPointInternal>(
+            this
+          ).attr('transform', `translate(${data.x}, ${data.y})`);
           selectedPoint
             .select('text')
             .style('text-anchor', () => {
@@ -251,8 +252,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
               return 'start';
             })
             .attr('x', (point) =>
-              // TODO: why is point undefined?
-              calculateTextPositionForX(point?.size || DEFAULT_SIZE, invertedX)
+              calculateTextPositionForX(point.size, invertedX)
             );
 
           self.emit('move', invertedX, invertedY);
@@ -286,7 +286,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
       });
 
     let group:
-      | Selection<SVGGElement, DataPoint, SVGGElement, unknown>
+      | Selection<SVGGElement, DataPointInternal, SVGGElement, unknown>
       | undefined;
 
     if (this.preview) {
@@ -342,7 +342,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
     }));
 
     // Map main line curve points to <svg> d attribute
-    this.line = line<Pick<DataPoint, 'x' | 'y'>>()
+    this.line = line<Pick<DataPointInternal, 'x' | 'y'>>()
       .x((d) => this.xScale(d.x))
       .y((d) => this.yScale(d.y));
 

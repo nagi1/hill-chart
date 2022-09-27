@@ -84,7 +84,7 @@ describe('hillchart@init', () => {
     const hill = setupHillChart();
     hill.data.forEach((point, index) => {
       if (typeof data[index].y === 'undefined') {
-        expect(point.y).toEqual(hillFn(data[index].x));
+        expect(point.y).toEqual(hillFn(data[index].x || 0));
       }
     });
   });
