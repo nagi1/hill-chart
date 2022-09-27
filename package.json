@@ -18,9 +18,9 @@
     "build": "rollup -c",
     "clean": "rimraf dist demo/dist",
     "deploy": "gh-pages -d demo/",
-    "format": "prettier --write \"**/*.+(js|json|yml|yaml|css|md)\"",
-    "lint": "eslint \"./**/*.{js,ts,tsx}\"",
-    "lint:fix": "eslint \"./**/*.{js,ts,tsx}\" --fix",
+    "format": "prettier --write \"**/*.+(js|json|yml|yaml|css|md|ts)\"",
+    "lint": "eslint \"./**/*.{js,ts}\"",
+    "lint:fix": "eslint \"./**/*.{js,ts}\" --fix",
     "postbuild": "copyfiles dist/** demo",
     "prebuild": "yarn clean",
     "prepublishOnly": "yarn build",
@@ -74,6 +74,7 @@
     "rollup-plugin-visualizer": "^5.8.2",
     "serve": "^14.0.1",
     "ts-essentials": "^9.3.0",
+    "ts-jest": "26.5.6",
     "typescript": "^4.8.3"
   },
   "dependencies": {
@@ -83,8 +84,7 @@
     "d3-scale": "3.2.1",
     "d3-selection": "1.4.1",
     "d3-shape": "1.3.7",
-    "event-emitter-es6": "1.1.5",
-    "ts-jest": "26.5.6"
+    "event-emitter-es6": "1.1.5"
   },
   "husky": {
     "hooks": {
@@ -95,7 +95,7 @@
     "*.+(json|css|md|yaml|yml)": [
       "yarn format"
     ],
-    "*.(js,ts,tsx)": [
+    "*.(js,ts)": [
       "yarn lint:fix",
       "yarn format",
       "yarn test:staged"
