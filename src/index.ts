@@ -230,9 +230,10 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
         });
 
         if (!self.preview) {
-          const selectedPoint = select<SVGGElement, DataPoint>(
-            self.target
-          ).attr('transform', `translate(${data.x}, ${data.y})`);
+          const selectedPoint = select<SVGGElement, DataPoint>(this).attr(
+            'transform',
+            `translate(${data.x}, ${data.y})`
+          );
           selectedPoint
             .select('text')
             .style('text-anchor', () => {
