@@ -14,7 +14,6 @@ let replacementData: {
 beforeEach(() => {
   svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   config = {
-    // @ts-expect-error TODO: fix me
     target: svg,
     width: 900,
     height: 270,
@@ -121,10 +120,10 @@ describe('hillchart@init', () => {
 
   it('renders the svg and center the chart according to margins', () => {
     setupHillChart();
-    expect(svg.getAttribute('height')).toEqual(config.height.toString());
-    expect(svg.getAttribute('width')).toEqual(config.width.toString());
+    expect(svg.getAttribute('height')).toEqual(config.height?.toString());
+    expect(svg.getAttribute('width')).toEqual(config.width?.toString());
     expect(svg.querySelector('g')?.getAttribute('transform')).toBe(
-      `translate(${config.margin.left}, ${config.margin.top})`
+      `translate(${config.margin?.left}, ${config.margin?.top})`
     );
   });
 
@@ -212,7 +211,8 @@ describe('hillchart@render', () => {
   });
 
   it('renders the footer text correctly', () => {
-    config.footerText.fontSize = 1;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    config.footerText!.fontSize = 1;
 
     const hill = setupHillChart();
     hill.render();
@@ -234,7 +234,8 @@ describe('hillchart@render', () => {
   });
 
   it('dosent render the footer text if specified', () => {
-    config.footerText.show = false;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    config.footerText!.show = false;
 
     const hill = setupHillChart();
     hill.render();
