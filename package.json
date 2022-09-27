@@ -2,68 +2,34 @@
   "name": "hill-chart",
   "description": "Basecamp's hill chart implementation in d3.js",
   "version": "1.3.1",
+  "author": "Ahmed Nagi <ahmedflnagi@gmail.com> (https://ahmednagi.com)",
+  "license": "MIT",
   "main": "dist/hill-chart.cjs.js",
   "module": "dist/hill-chart.esm.js",
   "style": "dist/styles.css",
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
-    "dev": "serve demo",
-    "test": "jest",
-    "test:coverage": "yarn test --coverage --collectCoverageFrom=src/**/*js --collectCoverageFrom=!src/d3.js",
-    "test:staged": "yarn test --findRelatedTests",
-    "test:coveralls": "yarn test --coverage && coveralls < coverage/lcov.info",
-    "clean": "rimraf dist demo/dist",
-    "prebuild": "yarn clean",
     "build": "rollup -c",
-    "postbuild": "copyfiles dist/** demo",
+    "clean": "rimraf dist demo/dist",
+    "deploy": "gh-pages -d demo/",
+    "dev": "serve demo",
+    "format": "prettier --write \"**/*.+(js|json|yml|yaml|css|md)\"",
     "lint": "eslint \"./**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"./**/*.{js,ts,tsx}\" --fix",
-    "format": "prettier --write \"**/*.+(js|json|yml|yaml|css|md)\"",
-    "deploy": "gh-pages -d demo/",
+    "postbuild": "copyfiles dist/** demo",
+    "prebuild": "yarn clean",
     "prepublishOnly": "yarn build",
+    "test": "jest",
+    "test:coverage": "yarn test --coverage --collectCoverageFrom=src/**/*js --collectCoverageFrom=!src/d3.js",
+    "test:coveralls": "yarn test --coverage && coveralls < coverage/lcov.info",
+    "test:staged": "yarn test --findRelatedTests",
     "watch": "rollup -c -w"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.+(json|css|md|yaml|yml)": [
-      "yarn format"
-    ],
-    "*.(js,ts,tsx)": [
-      "yarn lint:fix",
-      "yarn format",
-      "yarn test:staged"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nagi1/hill-chart"
-  },
-  "keywords": [
-    "basecamp",
-    "hill chart",
-    "project management",
-    "js",
-    "d3js"
-  ],
-  "jest": {
-    "preset": "ts-jest",
-    "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
-    }
-  },
-  "author": "Ahmed Nagi <ahmedflnagi@gmail.com> (https://ahmednagi.com)",
-  "license": "MIT",
-  "bugs": {
-    "email": "bugs@ahmednagi.com",
-    "url": "https://github.com/nagi1/hill-chart/issues"
-  },
-  "homepage": "https://nagi1.github.io/hill-chart/",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-transform-modules-commonjs": "^7.9.6",
@@ -106,9 +72,6 @@
     "ts-essentials": "^9.3.0",
     "typescript": "^4.8.3"
   },
-  "engines": {
-    "node": ">=14"
-  },
   "dependencies": {
     "d3-array": "2.4.0",
     "d3-axis": "1.0.12",
@@ -118,5 +81,42 @@
     "d3-shape": "1.3.7",
     "event-emitter-es6": "1.1.5",
     "ts-jest": "26.5.6"
-  }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.+(json|css|md|yaml|yml)": [
+      "yarn format"
+    ],
+    "*.(js,ts,tsx)": [
+      "yarn lint:fix",
+      "yarn format",
+      "yarn test:staged"
+    ]
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
+  "keywords": [
+    "basecamp",
+    "hill chart",
+    "project management",
+    "js",
+    "d3js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nagi1/hill-chart"
+  },
+  "bugs": {
+    "email": "bugs@ahmednagi.com",
+    "url": "https://github.com/nagi1/hill-chart/issues"
+  },
+  "homepage": "https://nagi1.github.io/hill-chart/"
 }
