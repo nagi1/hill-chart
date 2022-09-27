@@ -2,7 +2,7 @@
 
 [![](./media/screenshot.png)]()
 
-[Basecamp's hill chart](https://basecamp.com/features/hill-charts) implementation using [D3.js](https://d3js.org/), **Try the [demo](https://nagi1.github.io/hill-chart/)**
+[Basecamp's Hill Chart](https://basecamp.com/features/hill-charts) implementation using [D3.js](https://d3js.org/), **Try the [demo](https://nagi1.github.io/hill-chart/)**
 
 <br/>
 
@@ -17,26 +17,30 @@
 - [x] Customizable
 - [x] Tested ([kinda](#d3-testing-problems) 😅)
 - [x] Easily wrapped and integrated into other UI frameworks
-- [x] Dark mode by @jeffandersen
+- [x] Dark mode by [@jeffandersen](https://github.com/jeffandersen)
 
 
 ## Getting started
 
+### Using a package manager
 Install using yarn
 
 ```bash
 yarn add hill-chart
 ```
 
-using npm
+Install using npm
 
 ```bash
 npm i hill-chart
 ```
 
-<br/>
+Import styles
+```css
+@import 'hill-chart/dist/styles.css';
+```
 
-Or Using CDN
+### Using a CDN
 
 Chart styles ~ 1kb
 
@@ -47,29 +51,26 @@ Chart styles ~ 1kb
 />
 ```
 
-the whole bundle including d3js ~ 48kb (16kb gizp)
+#### D3.js + Hill Chart combined  bundle ~ 48kb (16kb gzip)
 
 ```html
 <script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.umd.js"></script>
 ```
 
----
+#### D3.js + Hill Chart separate bundles
 
-Or if you prefer D3js and hill-chart separate bundles
 
-Custom d3js **only** minified ~ 41kb (14 gizp)
+Custom D3.js only minified ~ 41kb (14 gizp)
 
 ```html
 <script src="https://unpkg.com/hill-chart@latest/dist/d3.min.js"></script>
 ```
 
-hill chart only minified ~8kb (2kb gzip)
+Hill Chart only minified ~8kb (2kb gzip)
 
 ```html
 <script src="https://unpkg.com/hill-chart@latest/dist/hill-chart.nod3.umd.js"></script>
 ```
-
----
 
 ## Usage
 
@@ -178,7 +179,7 @@ data: [
           size: 10, // (optional) default size of the point
           x: 12.069770990416055, // x coordinates, (optional, defaults to 0) avoid setting it manually
           y: 12.069770990416057, // y coordinates, (optional, defaults to 0) avoid setting it manually
-          link: '/fired.html', // (optional, defaults to '#') if in preview mode point became clickable
+          link: '/fired.html', // (optional, defaults to '#') if in preview mode point becomes clickable
   }
 ],
 ```
