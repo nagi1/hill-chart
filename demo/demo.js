@@ -66,23 +66,28 @@ function createAndRenderHill(data, options) {
   const hill = new /** @type {any} */ (window).HillChart(data, options);
 
   hill.on('home', (data) => {
-    console.log(`Started Over:`);
+    console.group('Started Over');
     console.log(data);
+    console.groupEnd();
   });
 
   hill.on('end', (data) => {
-    console.log(`Finished Over:`);
+    console.group('Finished Over');
     console.log(data);
+    console.groupEnd();
   });
 
   hill.on('move', (x, y) => {
+    console.group('Point move');
     console.log(`x: ${x}`);
     console.log(`y: ${y}`);
+    console.groupEnd();
   });
 
   hill.on('moved', (data) => {
-    console.log(`Point moved`);
+    console.group('Point moved');
     console.log(data);
+    console.groupEnd();
   });
 
   return hill;
