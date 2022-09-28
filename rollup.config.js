@@ -22,16 +22,49 @@ const name = 'HillChart';
 /**
  * inspired by
  * @see https://github.com/rollup/plugins/issues/247#issuecomment-663230846
+ *
+ * @param {import('rollup').ModuleFormat} format
+ * @returns {import('rollup').OutputOptions}
  */
 const getOutput = (format = 'esm') => {
-  return {
-    name: format === 'umd' ? name : undefined,
-    file: `${distDir}/${bundle}.${format}.js`,
-    format,
+  /**
+   * @type {import('rollup').OutputOptions}
+   */
+  const commonOptions = {
     exports: 'default',
+    format,
+    sourcemap: true,
+  };
+
+  if (format === 'esm') {
+    return {
+      ...commonOptions,
+      dir: path.dirname(pkg.module),
+      format,
+    };
+  }
+
+  if (format === 'cjs') {
+    return {
+      ...commonOptions,
+      file: `${path.dirname(pkg.main)}/${bundle}.${format}.js`,
+    };
+  }
+
+  return {
+    ...commonOptions,
+    name: format === 'umd' ? name : undefined,
+    file: `${distDir}/${format}/${bundle}.${format}.js`,
   };
 };
 
+/**
+ * inspired by
+ * @see https://github.com/rollup/plugins/issues/247#issuecomment-663230846
+ *
+ * @param {import('rollup').ModuleFormat} format
+ * @returns {import('rollup').InputOptions["plugins"]}
+ */
 const getPlugins = (format = 'esm') => {
   const typeScriptOptions =
     format === 'esm'
@@ -55,11 +88,13 @@ const getPlugins = (format = 'esm') => {
     }),
 
     isProduction && terser(),
+
     postcss({
-      extract: path.resolve('dist/styles.css'),
+      extract: 'styles.css',
       plugins: [autoprefixer(), cssnano()],
     }),
-    bundleSize(),
+
+    format !== 'esm' && bundleSize(),
     visualizer({
       gzipSize: true,
     }),
@@ -102,7 +137,7 @@ export default [
     output: [
       {
         name,
-        file: `${distDir}/${bundle}.nod3.umd.js`,
+        file: `${distDir}/umd/${bundle}.nod3.umd.js`,
         format: 'umd',
         globals: {
           'd3-selection': 'd3',
@@ -121,7 +156,7 @@ export default [
   {
     input: 'src/d3.ts',
     output: {
-      file: `${distDir}/d3.min.js`,
+      file: `${distDir}/umd/d3.min.js`,
       name: 'd3',
       format: 'umd',
     },

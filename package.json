@@ -4,8 +4,8 @@
   "version": "1.3.1",
   "author": "Ahmed Nagi <ahmedflnagi@gmail.com> (https://ahmednagi.com)",
   "license": "MIT",
-  "main": "dist/hill-chart.cjs.js",
-  "module": "dist/hill-chart.esm.js",
+  "main": "dist/cjs/hill-chart.cjs.js",
+  "module": "dist/esm/hill-chart.esm.js",
   "style": "dist/styles.css",
   "files": [
     "dist"
@@ -21,7 +21,7 @@
     "format": "prettier --write \"**/*.+(js|json|yml|yaml|css|md|ts)\"",
     "lint": "eslint \"./**/*.{js,ts}\"",
     "lint:fix": "eslint \"./**/*.{js,ts}\" --fix",
-    "postbuild": "copyfiles dist/** demo",
+    "postbuild": "copyfiles dist/**/* demo",
     "prebuild": "yarn clean",
     "prepublishOnly": "yarn build",
     "serve": "serve demo",
