@@ -23,10 +23,6 @@ import { Config, Data, DataPointInternal, IHillChartClass } from './types';
 import { DEFAULT_CONFIG, DEFAULT_SIZE } from './defaults';
 
 export default class HillChart extends EventEmitter implements IHillChartClass {
-  /**
-   * ### Public Variables ###
-   */
-
   data: IHillChartClass['data'] = [];
 
   target = DEFAULT_CONFIG.target;
@@ -44,10 +40,6 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
   footerText = DEFAULT_CONFIG.footerText;
 
   margin = DEFAULT_CONFIG.margin;
-
-  /**
-   * ### Private Variables ###
-   */
 
   chartWidth = 0;
 

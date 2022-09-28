@@ -87,16 +87,7 @@ export type DataPointInternal = DeepRequired<DataPoint>;
 export type DataInternal = DataPointInternal[];
 
 export interface IHillChartClass extends EventEmitter, ConfigInternal {
-  /**
-   * Public Variables
-   */
-
   data: DataInternal;
-
-  /**
-   * Internal Variables
-   */
-
   chartWidth: number;
   chartHeight: number;
   colorScheme: 'hill-chart-dark' | 'hill-chart-light';
