@@ -1,7 +1,7 @@
 {
   "name": "hill-chart",
   "description": "Basecamp's hill chart implementation in d3.js",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Ahmed Nagi <ahmedflnagi@gmail.com> (https://ahmednagi.com)",
   "license": "MIT",
   "main": "dist/cjs/hill-chart.cjs.js",
