@@ -5,7 +5,7 @@
   "author": "Ahmed Nagi <ahmedflnagi@gmail.com> (https://ahmednagi.com)",
   "license": "MIT",
   "main": "dist/cjs/hill-chart.cjs.js",
-  "module": "dist/esm/hill-chart.esm.js",
+  "module": "dist/esm/index.js",
   "style": "dist/styles.css",
   "files": [
     "dist"
