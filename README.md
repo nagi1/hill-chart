@@ -35,7 +35,7 @@ npm i hill-chart
 Import styles
 
 ```css
-@import 'hill-chart/dist/styles.css';
+@import 'hill-chart/dist/cjs/styles.css';
 ```
 
 ### Using a CDN
